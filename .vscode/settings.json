@@ -1,0 +1,8 @@
+{
+  "html.autoClosingTags": true,
+  "editor.autoClosingQuotes": "always",
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "emmet.triggerExpansionOnTab": true
+}
