@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Wandrbae</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <header id="page-header" role="banner" aria-label="document-header">
-    <div>
-      <h1>Wandrbae</h1>
-      <p>Wander with us, bae.</p>
-    </div>
-  </header>
-  <nav role ="navigation">
-    <ul>
-      <li><a href="#">Rides</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Get Involved</a></li>
-      <li><a href="#">Contact Us</a></li>
-      <li><a href="#">Bike Help</a></li>
-    </ul>
-  </nav>
+<?php
+  require_once('../private/initialize.php');
+  include(SHARED_PATH . '/public_header.php');
+?>
 
-  <main role="main">
-  </main>
-  
+    <main role="main">
+      <section>
+        <h2>Biking for Sustainability</h2>
+        <p>Formerly smooth as glass, it has taken on a very natural character with lots of rollers to soak up or jump. This is a bi-directional trail but most riders ride from the parking lot towards Pleasant Hill Road. Lots of Flow! Having gotten that out of the way, the Mana Road ride is absolutely beautiful and worth the ride. Unpacked snow and mud throughout.</p>
+      </section>
 
-</body>
-</html>
+      <section>
+        <h2>Your Adventure Community</h2>
+        <p>In the land of Mordor where the shadows lie, lorem ipsum dolor sit amet, consectetur adipiscing elit. The road goes ever on and on, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Through fire and shadow, across the plains of Rohan and the depths of Moria, enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </section>
+    </main>
+    
+<?php include(SHARED_PATH . '/public_footer.php'); ?>
+    

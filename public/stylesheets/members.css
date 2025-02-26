@@ -2,3 +2,23 @@ h1 {
   color: #008000;
   text-decoration: underline;
 }
+
+table {
+  border-collapse: collapse;
+  vertical-align: top;
+}
+
+table.list {
+  width: 100%;
+}
+
+table.list tr td {
+  border: 1px solid #999999;
+}
+
+table.list tr th {
+  border: 1px solid #008000;
+  background: #008000;
+  color: rgb(26, 24, 24);
+  text-align: left;
+}

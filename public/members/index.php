@@ -10,7 +10,7 @@
 </head>
 <body>
     <ul>
-      <li><a href="subjects/index.php">Subjects</a></li>
+      <li><a href="member_list.php">Member List</a></li>
     </ul>
 
 
