@@ -1,6 +1,7 @@
 <?php
   if(!isset($page_title)) { $page_title = 'WandrBae'; }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +9,11 @@
     <title>Wandrbae<?php echo h($page_title); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=myapikey&libraries=places"></script>
+    <script src="./route_map.js"></script>
+    <script>
+    window.onload = initMap; // Automatically loads map on page load
+  </script>
   </head>
   <body>
     <header id="page-header" role="banner" aria-label="document-header">
@@ -23,7 +29,7 @@
     </header>
     <nav role="navigation">
       <ul>
-        <li><a href="<?php echo url_for('/public/members/rides/index.php'); ?>">Rides</a></li>
+        <li><a href="<?php echo url_for('/public/members/routes/index.php'); ?>">Routes</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Join Us</a></li>
         <li><a href="#">Contact Us</a></li>
