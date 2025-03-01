@@ -47,5 +47,9 @@ include(SHARED_PATH . '/public_header.php');
   const routeWaypoints = <?php echo json_encode($waypoints); ?>;
   const routeName = "<?php echo h($route['route_name']); ?>";
 </script>
+<script>
+  console.log("Current file path: <?php echo __FILE__; ?>");
+  console.log("Route map should be at: <?php echo url_for('/javascripts/route_map.js'); ?>");
+</script>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

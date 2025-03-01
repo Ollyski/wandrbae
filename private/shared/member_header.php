@@ -5,11 +5,8 @@
     <title>WandrBae</title>
     <meta charset="utf-8">
     <link rel="stylesheet" media="all" href="../stylesheets/members.css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=myapikey&libraries=places"></script>
-    <script src="./route_map.js"></script>
-    <script>
-    window.onload = initMap; // Automatically loads map on page load
-  </script>
+    <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
+    
   </head>
 
   <body>

@@ -9,11 +9,9 @@
     <title>Wandrbae<?php echo h($page_title); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=myapikey&libraries=places"></script>
-    <script src="./route_map.js"></script>
-    <script>
-    window.onload = initMap; // Automatically loads map on page load
-  </script>
+    </script>
+    <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
+    
   </head>
   <body>
     <header id="page-header" role="banner" aria-label="document-header">
