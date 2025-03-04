@@ -9,10 +9,9 @@ if (!isset($page_title)) {
 
 <head>
   <meta charset="utf-8">
-  <title>Wandrbae<?php echo h($page_title); ?></title>
+  <title>Wandrbae - <?php echo h($page_title); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
-  </script>
+  <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" /> 
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
 
 </head>
@@ -34,7 +33,8 @@ if (!isset($page_title)) {
   </header>
   <nav role="navigation">
     <ul>
-      <li><a href="<?php echo url_for('/public/members/routes/index.php'); ?>">Routes</a></li>
+      <li><a href="<?php echo url_for('/members/routes/index.php'); ?>">Routes</a></li>
+      <li><a href="<?php echo url_for('/ride.php'); ?>">Ride</a></li>
       <li><a href="#">About</a></li>
       <li><a href="#">Join Us</a></li>
       <li><a href="#">Contact Us</a></li>

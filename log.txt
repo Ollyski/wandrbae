@@ -1,2 +1,8 @@
-show or view?
-update database on a2
+-singular 
+-RIDE
+-route
+-etc
+
+update database on A2
+
+*ACTIVE RECORD RIDE PHP*

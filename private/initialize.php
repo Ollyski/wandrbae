@@ -19,5 +19,16 @@
   require_once('database.php');
   require_once('query_functions.php');
 
+  foreach(glob('classes/*.class.php') as $file) {
+  require_once($file);
+  }
+
+  function my_autoload($class) {
+    if(preg_match('/\A\w+\Z/', $class)) {
+      include('classes/' . $class . '.class.php');
+    }
+  }
+  spl_autoload_register('my_autoload');
   $db = db_connect();
+  ride::set_database($db);
 ?>
