@@ -22,6 +22,7 @@ include(SHARED_PATH . '/public_header.php');
 
 <div class="container">
   <h1><?php echo h($route['route_name']); ?></h1>
+  <a href="../members/routes/index.php">Back to Routes</a>
   
   <div class="route-details">
     <div class="route-info">

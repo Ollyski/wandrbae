@@ -1,5 +1,4 @@
 <?php require_once('../private/initialize.php'); ?>
-<?php  echo "ID received: " . $_GET['id']; ?>
 <?php $page_title = 'Rides'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
