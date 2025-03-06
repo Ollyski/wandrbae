@@ -22,13 +22,15 @@ class Ride {
   }
 
   static public function find_all() {
-    $sql = "SELECT * FROM ride";
+    $sql = "SELECT r.*, u.username FROM ride r ";
+    $sql .= "LEFT JOIN user u ON r.created_by = u.user_id";
     return self::find_by_sql($sql);
   }
 
   static public function find_by_id($id) {
-    $sql = "SELECT * FROM ride ";
-    $sql .= "WHERE ride_id='" . self::$database->escape_string($id) . "'";
+    $sql = "SELECT r.*, u.username FROM ride r ";
+    $sql .= "LEFT JOIN user u ON r.created_by = u.user_id ";
+    $sql .= "WHERE r.ride_id='" . self::$database->escape_string($id) . "'";
     $obj_array = self::find_by_sql($sql);
     if(!empty($obj_array)) {
       return array_shift($obj_array);
@@ -40,19 +42,19 @@ class Ride {
   static protected function instantiate($record) {
     $object = new self;
     foreach($record as $property => $value) {
-    if(property_exists($object, $property)) {
-      $object->$property = $value;
-    } else {
-      $object->$property = $value;
+      if(property_exists($object, $property)) {
+        $object->$property = $value;
+      }
     }
+    return $object;
   }
-  return $object;
-  }
+
 
   //End of active record code
 
   public $ride_id;
   public $ride_name;
+  public $created_by;
   public $username;
   public $route_id;
   public $start_time;
@@ -62,5 +64,4 @@ class Ride {
   public $city;
   public $state;
   public $zip_code;
-
 }

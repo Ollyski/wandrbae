@@ -41,7 +41,6 @@ $rides = Ride::find_all();
     // Check if any rides were found
     if(!empty($ride_objects)) {
       $first_ride = $ride_objects[0];
-      echo "Featured Ride: " . h($first_ride->ride_name);
     } else {
       echo "No rides found.";
     }
