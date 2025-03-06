@@ -17,6 +17,9 @@
   }
 
   function h($string="") {
+    if (is_null($string)) {
+      $string = "";
+    }
     return htmlspecialchars($string);
   }
 

@@ -4,7 +4,6 @@
 <div id="main">
   <div id="page">
     <div class="intro">
-      <img class="inset" src="<?php echo url_for('/images/') ?>" />
       <h2>Wander with your baes!</h2>
       <p>Sign up for a ride!</p>
     </div>
@@ -25,7 +24,7 @@ $rides = Ride::find_all();
       <?php foreach($rides as $ride) { ?>
       <tr>
         <td><?php echo h($ride->ride_name); ?></td>
-        <td><?php echo h($ride->created_by); ?></td>
+        <td><?php echo h($ride->username); ?></td>
         <td><?php echo h($ride->start_time); ?></td>
         <td><?php echo h($ride->end_time); ?></td>
         <td><?php echo h($ride->location_name); ?></td>
@@ -36,7 +35,7 @@ $rides = Ride::find_all();
     </table>
     <?php
     // Using find_by_sql to get the ride objects
-    $sql = "SELECT * FROM ride LIMIT 1";
+    $sql = "SELECT * FROM ride";
     $ride_objects = Ride::find_by_sql($sql);
     
     // Check if any rides were found
