@@ -48,7 +48,23 @@ class Ride {
     }
     return $object;
   }
-
+  public function create() {
+    $sql = "INSERT INTO ride (";
+    $sql .="ride_name, username, start_time, end_time, location_name, street_address";
+    $sql .= ") VALUES (";
+    $sql .= "'" . $this->ride_name . "', ";
+    $sql .= "'" . $this->username . "', ";
+    $sql .= "'" . $this->start_time . "', ";
+    $sql .= "'" . $this->end_time . "', ";
+    $sql .= "'" . $this->location_name . "', ";
+    $sql .= "'" . $this->street_address . "', ";
+    $sql.= ")";
+    $result = self::$database->query($sql);
+    if($result) {
+      $this->id = self::$database->insert_id;
+    }
+    return $result;
+  }
 
   //End of active record code
 
@@ -64,4 +80,7 @@ class Ride {
   public $city;
   public $state;
   public $zip_code;
+
+  //constructor method
+
 }

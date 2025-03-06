@@ -10,7 +10,7 @@
 </head>
 <body>
     <ul>
-      <li><a href="member_list.php">Member List</a></li>
+    <li><a href="<?php echo url_for('/members/routes/index.php'); ?>">Routes</a></li>
     </ul>
 
 

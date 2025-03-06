@@ -61,8 +61,6 @@
   // Add this check
   if($ride === false) {
     echo "No ride found with ID: " . h($id);
-    // You might want to redirect here as well
-    // redirect_to('ride.php');
     exit();
   }
 ?>

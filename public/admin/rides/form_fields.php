@@ -13,13 +13,13 @@ if(!isset($ride)) {
 
 <dl>
   <dt>Ride Name</dt>
-  <dd><input type="text" name="ride" value="" /></dd>
+  <dd><input type="text" name="ride_name" value="" /></dd>
 </dl>
 
 <dl>
   <dt>Created By</dt>
   <dd>
-    <select name="year">
+    <select name="username">
       <option value=""></option>
     <?php $this_year = idate('Y') ?>
     <?php for($year=$this_year-20; $year <= $this_year; $year++) { ?>
@@ -29,12 +29,14 @@ if(!isset($ride)) {
   </dd>
 </dl>
 
-<dl> <!-- Route ID should also be auto incremented into db, not on form-->
+<!-- Route ID should also be auto incremented into db, not on form-->
+
+<dl> 
   <dt>Route ID</dt>
   <dd>
-    <select name="category">
+    <select name="route_id">
       <option value=""></option>
-    <?php foreach(Bicycle::CATEGORIES as $category) { ?>
+    <?php foreach(ride::CATEGORIES as $category) { ?>
       <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
     <?php } ?>
     </select>
@@ -44,10 +46,10 @@ if(!isset($ride)) {
 <dl>
   <dt>Start Time</dt>
   <dd>
-    <select name="gender">
+    <select name="start_time">
       <option value=""></option>
-    <?php foreach(Bicycle::GENDERS as $gender) { ?>
-      <option value="<?php echo $gender; ?>"><?php echo $gender; ?></option>
+    <?php foreach(ride::START_TIME as $start_time) { ?>
+      <option value="<?php echo $start_time; ?>"><?php echo $start_time; ?></option>
     <?php } ?>
     </select>
   </dd>
@@ -55,16 +57,16 @@ if(!isset($ride)) {
 
 <dl>
   <dt>End Time</dt>
-  <dd><input type="text" name="color" value="" /></dd>
+  <dd><input type="text" name="end_time" value="" /></dd>
 </dl>
 
 <dl>
   <dt>Location</dt>
   <dd>
-    <select name="condition_id">
+    <select name="location">
       <option value=""></option>
-    <?php foreach(Bicycle::CONDITION_OPTIONS as $cond_id => $cond_name) { ?>
-      <option value="<?php echo $cond_id; ?>"><?php echo $cond_name; ?></option>
+    <?php foreach(ride::LOCATION as $location => $location) { ?>
+      <option value="<?php echo $location; ?>"><?php echo $location; ?></option>
     <?php } ?>
     </select>
   </dd>
@@ -72,20 +74,20 @@ if(!isset($ride)) {
 
 <dl>
   <dt>Street Address(kg)</dt>
-  <dd><input type="text" name="weight_kg" value="" /></dd>
+  <dd><input type="text" name="address" value="" /></dd>
 </dl>
 
 <dl>
   <dt>City</dt>
-  <dd>$ <input type="text" name="price" size="18" value="" /></dd>
+  <dd>$ <input type="text" name="city" size="18" value="" /></dd>
 </dl>
 
 <dl>
   <dt>State</dt>
-  <dd><textarea name="description" rows="5" cols="50"></textarea></dd>
+  <dd><textarea name="state" rows="5" cols="50"></textarea></dd>
 </dl>
 
 <dl>
   <dt>Zip Code</dt>
-  <dd><textarea name="description" rows="5" cols="50"></textarea></dd>
+  <dd><textarea name="zipcode" rows="5" cols="50"></textarea></dd>
 </dl>
