@@ -3,4 +3,4 @@
 
 
 
-  <?php include(SHARED_PATH . '/member_footer.php')?>
+<?php include(SHARED_PATH . '/member_footer.php')?>

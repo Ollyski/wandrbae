@@ -1,5 +1,4 @@
 <?php require_once('../../../private/initialize.php');?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 <?php $page_title = 'Create Ride'; ?>
 <?php
  if(is_post_request()) {

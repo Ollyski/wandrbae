@@ -1,19 +1,12 @@
 <?php
-// prevents this code from being loaded directly in the browser
-// or without first setting the necessary object
 if(!isset($ride)) {
   redirect_to(url_for('/members/rides/index.php'));
 }
 ?>
 
-<!--<dl> Form shouldn't have ride id, it should be auto incremented in DB
-  <dt>$ride_id</dt>
-  <dd><input type="text" name="brand" value="" /></dd>
-</dl> -->
-
 <dl>
   <dt>Ride Name</dt>
-  <dd><input type="text" name="ride_name" value="" /></dd>
+  <dd><input type="text" name="ride_name" value="<?php echo h($ride->ride_name ?? ''); ?>" /></dd>
 </dl>
 
 <dl>
@@ -21,24 +14,13 @@ if(!isset($ride)) {
   <dd>
     <select name="username">
       <option value=""></option>
-    <?php $this_year = idate('Y') ?>
-    <?php for($year=$this_year-20; $year <= $this_year; $year++) { ?>
-      <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-    <?php } ?>
-    </select>
-  </dd>
-</dl>
-
-<!-- Route ID should also be auto incremented into db, not on form-->
-
-<dl> 
-  <dt>Route ID</dt>
-  <dd>
-    <select name="route_id">
-      <option value=""></option>
-    <?php foreach(ride::CATEGORIES as $category) { ?>
-      <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
-    <?php } ?>
+      <?php 
+      // user retrieval method
+      $users = []; // Replace with actual user data retrieval
+      foreach($users as $user) { 
+      ?>
+        <option value="<?php echo h($user->username); ?>" <?php if(($ride->username ?? '') == $user->username) { echo 'selected'; } ?>><?php echo h($user->username); ?></option>
+      <?php } ?>
     </select>
   </dd>
 </dl>
@@ -46,48 +28,76 @@ if(!isset($ride)) {
 <dl>
   <dt>Start Time</dt>
   <dd>
-    <select name="start_time">
-      <option value=""></option>
-    <?php foreach(ride::START_TIME as $start_time) { ?>
-      <option value="<?php echo $start_time; ?>"><?php echo $start_time; ?></option>
-    <?php } ?>
-    </select>
+    <input type="datetime-local" name="start_time" value="<?php echo h(isset($ride->start_time) ? date('Y-m-d\TH:i', strtotime($ride->start_time)) : ''); ?>" required />
   </dd>
 </dl>
 
 <dl>
   <dt>End Time</dt>
-  <dd><input type="text" name="end_time" value="" /></dd>
+  <dd>
+    <input type="datetime-local" name="end_time" value="<?php echo h(isset($ride->end_time) ? date('Y-m-d\TH:i', strtotime($ride->end_time)) : ''); ?>" required />
+  </dd>
 </dl>
 
 <dl>
   <dt>Location</dt>
   <dd>
-    <select name="location">
+    <select name="location_name">
       <option value=""></option>
-    <?php foreach(ride::LOCATION as $location => $location) { ?>
-      <option value="<?php echo $location; ?>"><?php echo $location; ?></option>
-    <?php } ?>
+      <?php 
+      // Make sure Ride::LOCATION is defined in Ride class
+      if(defined('Ride::LOCATION')) {
+        foreach(Ride::LOCATION as $location_value => $location_name) { 
+      ?>
+        <option value="<?php echo h($location_value); ?>" <?php if(($ride->location_name ?? '') == $location_value) { echo 'selected'; } ?>><?php echo h($location_name); ?></option>
+      <?php 
+        }
+      }
+      ?>
     </select>
   </dd>
 </dl>
 
 <dl>
-  <dt>Street Address(kg)</dt>
-  <dd><input type="text" name="address" value="" /></dd>
+  <dt>Street Address</dt>
+  <dd><input type="text" name="street_address" value="<?php echo h($ride->street_address ?? ''); ?>" /></dd>
 </dl>
 
 <dl>
   <dt>City</dt>
-  <dd>$ <input type="text" name="city" size="18" value="" /></dd>
+  <dd><input type="text" name="city" value="<?php echo h($ride->city ?? ''); ?>" /></dd>
 </dl>
 
 <dl>
   <dt>State</dt>
-  <dd><textarea name="state" rows="5" cols="50"></textarea></dd>
+  <dd>
+    <select name="state">
+      <option value=""></option>
+      <?php
+      $states = [
+        'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas',
+        'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware',
+        'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho',
+        'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas',
+        'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland',
+        'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi',
+        'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada',
+        'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York',
+        'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma',
+        'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina',
+        'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah',
+        'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia',
+        'WI' => 'Wisconsin', 'WY' => 'Wyoming', 'DC' => 'District of Columbia'
+      ];
+      
+      foreach($states as $code => $state_name) { 
+      ?>
+        <option value="<?php echo h($code); ?>" <?php if(($ride->state ?? '') == $code) { echo 'selected'; } ?>><?php echo h($state_name); ?></option>
+      <?php } ?>
+    </select>
+  </dd>
 </dl>
 
 <dl>
   <dt>Zip Code</dt>
-  <dd><textarea name="zipcode" rows="5" cols="50"></textarea></dd>
-</dl>
+  <dd><input type="text" name="zip_code" size="5" maxlength="5" value="<?php echo h($ride->zip_code ?? ''); ?>" /></dd>
