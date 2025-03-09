@@ -3,6 +3,7 @@
 class Ride {
   // Active Record Code
   static protected $database;
+  static protected $db_columns = ['ride_id', 'ride_name', 'created_by', 'route_id', 'start_time', 'end_time', 'location_name', 'street_address', 'city', 'state', 'zip_code'];
 
   static public function set_database($database) {
     self::$database = $database;
@@ -80,28 +81,29 @@ class Ride {
         die("Error: Invalid or missing state. Please select a valid U.S. state.");
     }
 
+    $attributes = $this->attributes();
     $sql = "INSERT INTO ride (";
-    $sql .= "ride_name, created_by, route_id, start_time, end_time, location_name, street_address, city, state, zip_code";
-    $sql .= ") VALUES (";
-    $sql .= "'" . $this->ride_name . "', ";
-    $sql .= "'" . $this->created_by . "', ";
-    $sql .= "'" . $this->route_id . "', ";
-    $sql .= "'" . $this->start_time . "', ";
-    $sql .= "'" . $this->end_time . "', ";
-    $sql .= "'" . $this->location_name . "', ";
-    $sql .= "'" . $this->street_address . "', ";
-    $sql .= "'" . ($this->city ?? '') . "', ";
-    $sql .= "'" . ($this->state ?? '') . "', ";
-    $sql .= "'" . ($this->zip_code ?? '') . "'";
-    $sql .= ")";
+    $sql .= join(', ', array_keys($attributes));
+    $sql .= ") VALUES ('";
+    $sql .= join("', '", array_values($attributes));
+    $sql .= "')";
     
-    echo "Debug SQL: " . $sql . "<dbr>";
+    echo "Debug SQL: " . $sql . "<br>";
 
     $result = self::$database->query($sql);
     if($result) {
-      $this->id = self::$database->insert_id;
+      $this->ride_id = self::$database->insert_id;
     }
     return $result;
+  }
+
+  //Properties which have db columns excluding id
+  public function attributes() {
+    $attributes = [];
+    foreach(self::$db_columns as $column) {
+      $attributes[$column] = $this->$column;
+    }
+    return $attributes;
   }
 
   //End of active record code
@@ -132,5 +134,9 @@ class Ride {
     $this->city = $args['city'] ?? '';
     $this->state = $args['state'] ?? '';
     $this->zip_code = $args['zip_code'] ?? '';
+  }
+
+  public function ride_name() {
+    return $this->ride_name;
   }
 }

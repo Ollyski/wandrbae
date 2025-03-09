@@ -11,7 +11,13 @@ if(isset($_SESSION['message'])) {
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 
 $ride = Ride::find_by_id($id);
+if(!$ride) {
+  $_SESSION['message'] = "Ride not found.";
+  redirect_to(url_for('/members/rides/index.php'));
+}
 
+$page_title = 'Show Ride: ' . h($ride->ride_name());
+?>
 ?>
 
 <?php $page_title = 'Show Ride: ' . h($ride->ride_name()); ?>
@@ -19,7 +25,7 @@ $ride = Ride::find_by_id($id);
 
 <div id="content">
 
-  <a href="<?php echo url_for('/members/rides/index.php'); ?>">&laquo; Back to List</a>
+  <a href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
 
   <div>
 
