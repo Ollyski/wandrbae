@@ -9,7 +9,7 @@
   $result = mysqli_query($db, $sql);
   return $result;
  }
- 
+
  function find_route_by_id($id) {
   global $db;
   
@@ -51,5 +51,16 @@ function find_waypoints_by_route_id($route_id) {
   
   mysqli_free_result($result);
   return $waypoints;
+}
+
+function find_all_routes() {
+  global $db;
+  $sql = "SELECT * FROM route";
+  $result = mysqli_query($db, $sql);
+  if (!$result) {
+    echo "Database query error: " . mysqli_error($db);
+    return false;
+  }
+  return $result;
 }
 ?>

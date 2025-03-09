@@ -1,3 +1,4 @@
+
 <?php
 if(!isset($ride)) {
   require_once('../../../private/initialize.php');
@@ -26,6 +27,34 @@ if(!isset($ride)) {
           <?php echo h($user['username']); ?>
         </option>
       <?php } ?>
+    </select>
+  </dd>
+</dl>
+
+<dl>
+  <dt>Route</dt>
+  <dd>
+    <select name="route_id" required>
+      <option value="">Select a route</option>
+      <?php
+      $result = find_all_routes(); 
+      if (!$result) {
+        echo "<p>Error getting routes.</p>";
+      } else {
+        $count = mysqli_num_rows($result);
+        echo "<!-- Found $count routes -->";
+      
+      while($route = mysqli_fetch_assoc($result)) {
+        echo "<!-- Route ID: " . $route['route_id'] . " Name: " . ($route['route_name'] ?? 'NO NAME') . " -->";
+        ?>
+          <option value="<?php echo h($route['route_id']); ?>" 
+              <?php if(($ride->route_id ?? '') == $route['route_id']) { echo 'selected'; } ?>>
+            <?php echo h($route['route_name'] ?? 'Route ' . $route['route_id']); ?>
+          </option>
+        <?php 
+          }
+        } 
+      ?>
     </select>
   </dd>
 </dl>

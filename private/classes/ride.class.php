@@ -27,6 +27,23 @@ class Ride {
     return self::find_by_sql($sql);
   }
 
+  function find_all_routes() {
+    global $db;
+    $sql = "SELECT * FROM route";
+    $result = mysqli_query($db, $sql);
+    
+    if (!$result) {
+      echo "Database query error: " . mysqli_error($db);
+      return false;
+    }
+    
+    if (mysqli_num_rows($result) === 0) {
+      echo "<!-- No routes found in database -->";
+    }
+    
+    return $result;
+  }
+
   static public function find_by_id($id) {
     $sql = "SELECT r.*, u.username FROM ride r ";
     $sql .= "LEFT JOIN user u ON r.created_by = u.user_id ";
@@ -64,10 +81,11 @@ class Ride {
     }
 
     $sql = "INSERT INTO ride (";
-    $sql .= "ride_name, created_by, start_time, end_time, location_name, street_address, city, state, zip_code";
+    $sql .= "ride_name, created_by, route_id, start_time, end_time, location_name, street_address, city, state, zip_code";
     $sql .= ") VALUES (";
     $sql .= "'" . $this->ride_name . "', ";
     $sql .= "'" . $this->created_by . "', ";
+    $sql .= "'" . $this->route_id . "', ";
     $sql .= "'" . $this->start_time . "', ";
     $sql .= "'" . $this->end_time . "', ";
     $sql .= "'" . $this->location_name . "', ";
@@ -106,6 +124,7 @@ class Ride {
   public function __construct($args = []) {
     $this->ride_name = $args['ride_name'] ?? '';
     $this->created_by = $args['created_by'] ?? '';
+    $this->route_id = $args['route_id'] ?? '';
     $this->start_time = $args['start_time'] ?? '';
     $this->end_time = $args['end_time'] ?? '';
     $this->location_name = $args['location_name'] ?? '';

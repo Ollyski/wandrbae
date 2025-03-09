@@ -22,7 +22,7 @@ if (!isset($page_title)) {
       <div class="header-text">
         <h1>Wandrbae</h1>
         <p>Wander with us, bae.</p>
-        <p>PUBLIC HEADER ACTIVE</p>
+        <a href="<?php echo url_for('/index.php'); ?>">Home</a>
 
       </div>
       <div class="header-buttons">
