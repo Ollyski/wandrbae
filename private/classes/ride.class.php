@@ -49,16 +49,36 @@ class Ride {
     return $object;
   }
   public function create() {
+
+    if (!isset($this->state)) {
+      die("Error: State is not set.");
+  }
+  
+  $this->state = strtoupper(trim($this->state));
+  
+    $valid_states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
+
+    // Ensure state is not empty and is a valid abbreviation
+    if (empty($this->state) || !in_array(strtoupper(trim($this->state)), $valid_states)) {
+        die("Error: Invalid or missing state. Please select a valid U.S. state.");
+    }
+
     $sql = "INSERT INTO ride (";
-    $sql .="ride_name, username, start_time, end_time, location_name, street_address";
+    $sql .= "ride_name, created_by, start_time, end_time, location_name, street_address, city, state, zip_code";
     $sql .= ") VALUES (";
     $sql .= "'" . $this->ride_name . "', ";
-    $sql .= "'" . $this->username . "', ";
+    $sql .= "'" . $this->created_by . "', ";
     $sql .= "'" . $this->start_time . "', ";
     $sql .= "'" . $this->end_time . "', ";
     $sql .= "'" . $this->location_name . "', ";
     $sql .= "'" . $this->street_address . "', ";
-    $sql.= ")";
+    $sql .= "'" . ($this->city ?? '') . "', ";
+    $sql .= "'" . ($this->state ?? '') . "', ";
+    $sql .= "'" . ($this->zip_code ?? '') . "'";
+    $sql .= ")";
+    
+    echo "Debug SQL: " . $sql . "<dbr>";
+
     $result = self::$database->query($sql);
     if($result) {
       $this->id = self::$database->insert_id;
@@ -83,4 +103,15 @@ class Ride {
 
   //constructor method
 
+  public function __construct($args = []) {
+    $this->ride_name = $args['ride_name'] ?? '';
+    $this->created_by = $args['created_by'] ?? '';
+    $this->start_time = $args['start_time'] ?? '';
+    $this->end_time = $args['end_time'] ?? '';
+    $this->location_name = $args['location_name'] ?? '';
+    $this->street_address = $args['street_address'] ?? '';
+    $this->city = $args['city'] ?? '';
+    $this->state = $args['state'] ?? '';
+    $this->zip_code = $args['zip_code'] ?? '';
+  }
 }

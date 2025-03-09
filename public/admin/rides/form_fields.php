@@ -1,6 +1,7 @@
 <?php
 if(!isset($ride)) {
-  redirect_to(url_for('/members/rides/index.php'));
+  require_once('../../../private/initialize.php');
+  $ride = new stdClass();
 }
 ?>
 
@@ -12,14 +13,18 @@ if(!isset($ride)) {
 <dl>
   <dt>Created By</dt>
   <dd>
-    <select name="username">
+    <select name="created_by">
       <option value=""></option>
-      <?php 
-      // user retrieval method
-      $users = []; // Replace with actual user data retrieval
-      foreach($users as $user) { 
+      <?php
+      // Get all users from database
+      $result = find_all_users();
+      
+      while($user = mysqli_fetch_assoc($result)) {
       ?>
-        <option value="<?php echo h($user->username); ?>" <?php if(($ride->username ?? '') == $user->username) { echo 'selected'; } ?>><?php echo h($user->username); ?></option>
+        <option value="<?php echo h($user['user_id']); ?>" 
+            <?php if(($ride->created_by ?? '') == $user['user_id']) { echo 'selected'; } ?>>
+          <?php echo h($user['username']); ?>
+        </option>
       <?php } ?>
     </select>
   </dd>
@@ -42,19 +47,7 @@ if(!isset($ride)) {
 <dl>
   <dt>Location</dt>
   <dd>
-    <select name="location_name">
-      <option value=""></option>
-      <?php 
-      // Make sure Ride::LOCATION is defined in Ride class
-      if(defined('Ride::LOCATION')) {
-        foreach(Ride::LOCATION as $location_value => $location_name) { 
-      ?>
-        <option value="<?php echo h($location_value); ?>" <?php if(($ride->location_name ?? '') == $location_value) { echo 'selected'; } ?>><?php echo h($location_name); ?></option>
-      <?php 
-        }
-      }
-      ?>
-    </select>
+    <input type="text" name="location_name" value="<?php echo h($ride->location_name ?? ''); ?>">
   </dd>
 </dl>
 
@@ -65,39 +58,73 @@ if(!isset($ride)) {
 
 <dl>
   <dt>City</dt>
-  <dd><input type="text" name="city" value="<?php echo h($ride->city ?? ''); ?>" /></dd>
+  <dd>
+    <input type="text" name="city" value="<?php echo h($ride->city ?? ''); ?>" />
+  </dd>
 </dl>
 
 <dl>
   <dt>State</dt>
   <dd>
-    <select name="state">
-      <option value=""></option>
-      <?php
-      $states = [
-        'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas',
-        'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware',
-        'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho',
-        'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas',
-        'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland',
-        'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi',
-        'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada',
-        'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York',
-        'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma',
-        'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina',
-        'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah',
-        'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia',
-        'WI' => 'Wisconsin', 'WY' => 'Wyoming', 'DC' => 'District of Columbia'
-      ];
-      
-      foreach($states as $code => $state_name) { 
-      ?>
-        <option value="<?php echo h($code); ?>" <?php if(($ride->state ?? '') == $code) { echo 'selected'; } ?>><?php echo h($state_name); ?></option>
-      <?php } ?>
+    <select name="state" required>
+      <option value="">Select a state</option>
+      <option value="AL" <?php if(($ride->state ?? '') == 'AL') { echo 'selected'; } ?>>Alabama</option>
+      <option value="AK" <?php if(($ride->state ?? '') == 'AK') { echo 'selected'; } ?>>Alaska</option>
+      <option value="AZ" <?php if(($ride->state ?? '') == 'AZ') { echo 'selected'; } ?>>Arizona</option>
+      <option value="AR" <?php if(($ride->state ?? '') == 'AR') { echo 'selected'; } ?>>Arkansas</option>
+      <option value="CA" <?php if(($ride->state ?? '') == 'CA') { echo 'selected'; } ?>>California</option>
+      <option value="CO" <?php if(($ride->state ?? '') == 'CO') { echo 'selected'; } ?>>Colorado</option>
+      <option value="CT" <?php if(($ride->state ?? '') == 'CT') { echo 'selected'; } ?>>Connecticut</option>
+      <option value="DE" <?php if(($ride->state ?? '') == 'DE') { echo 'selected'; } ?>>Delaware</option>
+      <option value="FL" <?php if(($ride->state ?? '') == 'FL') { echo 'selected'; } ?>>Florida</option>
+      <option value="GA" <?php if(($ride->state ?? '') == 'GA') { echo 'selected'; } ?>>Georgia</option>
+      <option value="HI" <?php if(($ride->state ?? '') == 'HI') { echo 'selected'; } ?>>Hawaii</option>
+      <option value="ID" <?php if(($ride->state ?? '') == 'ID') { echo 'selected'; } ?>>Idaho</option>
+      <option value="IL" <?php if(($ride->state ?? '') == 'IL') { echo 'selected'; } ?>>Illinois</option>
+      <option value="IN" <?php if(($ride->state ?? '') == 'IN') { echo 'selected'; } ?>>Indiana</option>
+      <option value="IA" <?php if(($ride->state ?? '') == 'IA') { echo 'selected'; } ?>>Iowa</option>
+      <option value="KS" <?php if(($ride->state ?? '') == 'KS') { echo 'selected'; } ?>>Kansas</option>
+      <option value="KY" <?php if(($ride->state ?? '') == 'KY') { echo 'selected'; } ?>>Kentucky</option>
+      <option value="LA" <?php if(($ride->state ?? '') == 'LA') { echo 'selected'; } ?>>Louisiana</option>
+      <option value="ME" <?php if(($ride->state ?? '') == 'ME') { echo 'selected'; } ?>>Maine</option>
+      <option value="MD" <?php if(($ride->state ?? '') == 'MD') { echo 'selected'; } ?>>Maryland</option>
+      <option value="MA" <?php if(($ride->state ?? '') == 'MA') { echo 'selected'; } ?>>Massachusetts</option>
+      <option value="MI" <?php if(($ride->state ?? '') == 'MI') { echo 'selected'; } ?>>Michigan</option>
+      <option value="MN" <?php if(($ride->state ?? '') == 'MN') { echo 'selected'; } ?>>Minnesota</option>
+      <option value="MS" <?php if(($ride->state ?? '') == 'MS') { echo 'selected'; } ?>>Mississippi</option>
+      <option value="MO" <?php if(($ride->state ?? '') == 'MO') { echo 'selected'; } ?>>Missouri</option>
+      <option value="MT" <?php if(($ride->state ?? '') == 'MT') { echo 'selected'; } ?>>Montana</option>
+      <option value="NE" <?php if(($ride->state ?? '') == 'NE') { echo 'selected'; } ?>>Nebraska</option>
+      <option value="NV" <?php if(($ride->state ?? '') == 'NV') { echo 'selected'; } ?>>Nevada</option>
+      <option value="NH" <?php if(($ride->state ?? '') == 'NH') { echo 'selected'; } ?>>New Hampshire</option>
+      <option value="NJ" <?php if(($ride->state ?? '') == 'NJ') { echo 'selected'; } ?>>New Jersey</option>
+      <option value="NM" <?php if(($ride->state ?? '') == 'NM') { echo 'selected'; } ?>>New Mexico</option>
+      <option value="NY" <?php if(($ride->state ?? '') == 'NY') { echo 'selected'; } ?>>New York</option>
+      <option value="NC" <?php if(($ride->state ?? '') == 'NC') { echo 'selected'; } ?>>North Carolina</option>
+      <option value="ND" <?php if(($ride->state ?? '') == 'ND') { echo 'selected'; } ?>>North Dakota</option>
+      <option value="OH" <?php if(($ride->state ?? '') == 'OH') { echo 'selected'; } ?>>Ohio</option>
+      <option value="OK" <?php if(($ride->state ?? '') == 'OK') { echo 'selected'; } ?>>Oklahoma</option>
+      <option value="OR" <?php if(($ride->state ?? '') == 'OR') { echo 'selected'; } ?>>Oregon</option>
+      <option value="PA" <?php if(($ride->state ?? '') == 'PA') { echo 'selected'; } ?>>Pennsylvania</option>
+      <option value="RI" <?php if(($ride->state ?? '') == 'RI') { echo 'selected'; } ?>>Rhode Island</option>
+      <option value="SC" <?php if(($ride->state ?? '') == 'SC') { echo 'selected'; } ?>>South Carolina</option>
+      <option value="SD" <?php if(($ride->state ?? '') == 'SD') { echo 'selected'; } ?>>South Dakota</option>
+      <option value="TN" <?php if(($ride->state ?? '') == 'TN') { echo 'selected'; } ?>>Tennessee</option>
+      <option value="TX" <?php if(($ride->state ?? '') == 'TX') { echo 'selected'; } ?>>Texas</option>
+      <option value="UT" <?php if(($ride->state ?? '') == 'UT') { echo 'selected'; } ?>>Utah</option>
+      <option value="VT" <?php if(($ride->state ?? '') == 'VT') { echo 'selected'; } ?>>Vermont</option>
+      <option value="VA" <?php if(($ride->state ?? '') == 'VA') { echo 'selected'; } ?>>Virginia</option>
+      <option value="WA" <?php if(($ride->state ?? '') == 'WA') { echo 'selected'; } ?>>Washington</option>
+      <option value="WV" <?php if(($ride->state ?? '') == 'WV') { echo 'selected'; } ?>>West Virginia</option>
+      <option value="WI" <?php if(($ride->state ?? '') == 'WI') { echo 'selected'; } ?>>Wisconsin</option>
+      <option value="WY" <?php if(($ride->state ?? '') == 'WY') { echo 'selected'; } ?>>Wyoming</option>
     </select>
   </dd>
 </dl>
 
 <dl>
   <dt>Zip Code</dt>
-  <dd><input type="text" name="zip_code" size="5" maxlength="5" value="<?php echo h($ride->zip_code ?? ''); ?>" /></dd>
+  <dd>
+    <input type="text" name="zip_code" value="<?php echo h($ride->zip_code ?? ''); ?>" />
+  </dd>
+</dl>

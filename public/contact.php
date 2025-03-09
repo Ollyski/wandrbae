@@ -5,6 +5,6 @@
 
 
 <h1>Coming Soon</h1>
-<h2>Join Soon</h2>
+<h2> Contact Soon</h2>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

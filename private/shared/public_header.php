@@ -37,6 +37,6 @@ if (!isset($page_title)) {
       <li><a href="<?php echo url_for('/ride.php'); ?>">Ride</a></li>
       <li><a href="<?php echo url_for('/about.php'); ?>">About</a></li>
       <li><a href="<?php echo url_for('/join.php'); ?>">Join Us</a></li>
-      <li><a href="#">Contact Us</a></li>
+      <li><a href="<?php echo url_for('/contact.php'); ?>">Contact Us</a></li>
     </ul>
   </nav>
