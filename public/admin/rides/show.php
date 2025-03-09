@@ -1,6 +1,6 @@
 <?php require_once('../../../private/initialize.php'); ?>
 <?php
-if(isset($_SESSION['message'])) {
+if (isset($_SESSION['message'])) {
   echo "<div class='message'>" . $_SESSION['message'] . "</div>";
 }
 ?>
@@ -8,24 +8,24 @@ if(isset($_SESSION['message'])) {
 
 <?php
 
-$id = $_GET['id'] ?? '1'; // PHP > 7.0
+$id = $_GET['id'] ?? '1';
 
 $ride = Ride::find_by_id($id);
-if(!$ride) {
+if (!$ride) {
   $_SESSION['message'] = "Ride not found.";
   redirect_to(url_for('/members/rides/index.php'));
 }
 
 $page_title = 'Show Ride: ' . h($ride->ride_name());
 ?>
-?>
+
 
 <?php $page_title = 'Show Ride: ' . h($ride->ride_name()); ?>
 <?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="content">
 
-  <a href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
+  <a href="<?php echo url_for('/ride.php'); ?>">&laquo; Back to List</a>
 
   <div>
 

@@ -1,13 +1,13 @@
-<?php require_once('../../../private/initialize.php');?>
+<?php require_once('../../../private/initialize.php'); ?>
 <?php $page_title = 'Create Ride'; ?>
-<?php 
-$errors = []; 
+<?php
+$errors = [];
 
-if(is_post_request()) {
+if (is_post_request()) {
   $args = [];
   $args['ride_name'] = $_POST['ride_name'] ?? NULL;
   $args['created_by'] = $_POST['created_by'] ?? NULL;
-  $args['route_id'] = $_POST['route_id'] ?? NULL; 
+  $args['route_id'] = $_POST['route_id'] ?? NULL;
   $args['start_time'] = $_POST['start_time'] ?? NULL;
   $args['end_time'] = $_POST['end_time'] ?? NULL;
   $args['location_name'] = $_POST['location_name'] ?? NULL;
@@ -15,21 +15,21 @@ if(is_post_request()) {
   $args['city'] = $_POST['city'] ?? NULL;
   $args['state'] = $_POST['state'] ?? NULL;
   $args['zip_code'] = $_POST['zip_code'] ?? NULL;
-  
-  if(empty($args['state'])) {
+
+  if (empty($args['state'])) {
     $errors[] = "State is required.";
   }
-  
-  if(empty($args['route_id'])) {
+
+  if (empty($args['route_id'])) {
     $errors[] = "Route is required.";
   }
 
-  if(empty($errors)) {
+  if (empty($errors)) {
     $ride = new Ride($args);
     $result = $ride->create();
   }
-  if($result === true) {
-    $new_id = $ride->id;
+  if ($result === true) {
+    $new_id = $ride->ride_id;
     $_SESSION['message'] = 'The ride was created successfully.';
     redirect_to(url_for('/admin/rides/show.php?id=' . $new_id));
   } else {
