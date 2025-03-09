@@ -33,11 +33,9 @@ if(is_post_request()) {
     $_SESSION['message'] = 'The ride was created successfully.';
     redirect_to(url_for('/admin/rides/show.php?id=' . $new_id));
   } else {
-    // Add database errors to the errors array
     $errors[] = "Database error: " . $result;
   }
 } else {
-  // display the form
   $ride = new stdClass();
 }
 ?>
