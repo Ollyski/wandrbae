@@ -66,7 +66,7 @@ class Admin extends DatabaseObject {
   
   public static function find_all_admins() {
     $sql = "SELECT * FROM " . static::$table_name . " ";
-    $sql .= "WHERE role_id IN (2, 3) ";
+    $sql .= "WHERE user_role_id IN (2, 3) ";
     $sql .= "ORDER BY last_name ASC, first_name ASC";
     return static::find_by_sql($sql);
   }
