@@ -35,9 +35,9 @@ $admin = Admin::find_all();
           <td><?php echo h($admin->last_name); ?></td>
           <td><?php echo h($admin->email); ?></td>
           <td><?php echo h($admin->username); ?></td>
-          <td><a class="action" href="<?php echo url_for('/admin/show.php?id=' . h(u($admin->id))); ?>">View</a></td>
-          <td><a class="action" href="<?php echo url_for('/admin/edit.php?id=' . h(u($admin->id))); ?>">Edit</a></td>
-          <td><a class="action" href="<?php echo url_for('/admin/delete.php?id=' . h(u($admin->id))); ?>">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/admin/show.php?id=' . h(u($admin->user_id))); ?>">View</a></td>
+          <td><a class="action" href="<?php echo url_for('/admin/edit.php?id=' . h(u($admin->user_id))); ?>">Edit</a></td>
+          <td><a class="action" href="<?php echo url_for('/admin/delete.php?id=' . h(u($admin->user_id))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

@@ -71,6 +71,17 @@ class Admin extends DatabaseObject {
     return static::find_by_sql($sql);
   }
 
+  public static function find_by_id($id) {
+    $sql = "SELECT * FROM " . static::$table_name . " ";
+    $sql .= "WHERE user_id='" . self::$database->escape_string($id) . "'";
+    $obj_array = static::find_by_sql($sql);
+    if(!empty($obj_array)) {
+        return array_shift($obj_array);
+    } else {
+        return false;
+    }
+  }
+
   protected function set_hashed_password() {
     $this->password = password_hash($this->password, PASSWORD_BCRYPT);
   }
@@ -84,6 +95,7 @@ class Admin extends DatabaseObject {
     $this->set_hashed_password();
     return parent::update();
   }
+
 }
 
 ?>
