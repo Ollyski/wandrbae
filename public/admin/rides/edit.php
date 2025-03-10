@@ -46,13 +46,13 @@ if (is_post_request()) {
 
 <div id="content">
 
-  <a class="back-link" href="<?php echo url_for('/members/rides/index.php'); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
 
   <div>
     <h1>Edit Ride</h1>
 
 
-    <form action="<?php echo url_for('/admin/rides/form_fields.php?id=' . h(u($id))); ?>" method="post">
+    <form action="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($id))); ?>" method="post">
 
       <?php include('form_fields.php'); ?>
 
