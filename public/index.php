@@ -2,7 +2,9 @@
   require_once('../private/initialize.php');
   include(SHARED_PATH . '/public_header.php');
 ?>
-
+  <ul id="menu">
+    <li><a href="<?php echo url_for('/admin/index.php'); ?>">Admin Management</a></li>
+</ul>
     <main role="main">
       <section>
         <h2>Biking for Sustainability</h2>

@@ -8,6 +8,10 @@ table {
   vertical-align: top;
 }
 
+.list th {
+  color: #fff;
+}
+
 table.list {
   width: 100%;
 }
