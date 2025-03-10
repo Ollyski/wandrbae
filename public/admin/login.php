@@ -21,16 +21,28 @@ if(is_post_request()) {
 
   if(empty($errors)) {
     $admin = Admin::find_by_username($username);
-
+  
+    // Add this debugging code
+    if($admin != false) {
+      // Debug output
+      echo "User found in database<br>";
+      echo "Username: " . $admin->username . "<br>";
+      echo "Has hashed_password: " . (isset($admin->hashed_password) ? "Yes" : "No") . "<br>";
+      
+      // This will help debug the password verification
+      var_dump($admin);
+      var_dump(password_verify($password, $admin->hashed_password));
+      exit(); // Stop execution here for debugging
+    }
+  
     if($admin != false && $admin->verify_password($password)) {
-    
+      
       $session->login($admin);
-      redirect_to(url_for('/member/index.php'));
+      redirect_to(url_for('/members/index.php'));
     } else {
-    
+      
       $errors[] = "Log in was unsuccessful.";
     }
-
   }
 
 }

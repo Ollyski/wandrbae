@@ -31,6 +31,10 @@
     return htmlspecialchars($string);
   }
 
+  function is_blank($value) {
+    return !isset($value) || trim($value) === '';
+  }
+
   function error_404() {
     header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
     exit();

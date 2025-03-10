@@ -11,8 +11,8 @@ class Session {
   public function login($admin) {
     if($admin) {
       session_regenerate_id();
-      $_SESSION['admin_id'] = $admin->id;
-      $this->admin_id = $admin->id;
+      $_SESSION['admin_id'] = $admin->user_id; // Change from $admin->id to $admin->user_id
+      $this->admin_id = $admin->user_id;       // Change here too
     }
     return true;
   }
