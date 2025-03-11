@@ -3,7 +3,5 @@ require_once('../../private/initialize.php');
 
 
 $session->logout();
-
-redirect_to(url_for('/members/login.php'));
-
-?>
+session_destroy();
+redirect_to(url_for('/admin/login.php'));

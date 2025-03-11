@@ -11,7 +11,7 @@ if (!isset($page_title)) {
   <meta charset="utf-8">
   <title>Wandrbae - <?php echo h($page_title); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" /> 
+  <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
 
 </head>
@@ -26,8 +26,8 @@ if (!isset($page_title)) {
 
       </div>
       <div class="header-buttons">
-        <a href="#" class="btn">Join Us</a>
-        <a href="#" class="btn">Log In</a>
+        <a href="<?php echo url_for('/join.php'); ?>" class="btn">Join Us</a>
+        <a href="<?php echo url_for('/admin/login.php'); ?>" class="btn">Log In</a>
       </div>
     </div>
   </header>
