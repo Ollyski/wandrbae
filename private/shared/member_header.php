@@ -28,8 +28,9 @@
       ?>
         <li><a href="<?php echo url_for('/members/index.php'); ?>">Menu</a></li>
         <li><a href="<?php echo url_for('/admin/logout.php'); ?>">Logout <?php echo h($user_name); ?></a></li>
-      <?php } else { ?>
-        <li><a href="<?php echo url_for('/members/login.php'); ?>">Login</a></li>
       <?php } ?>
     </ul>
   </navigation>
+</body>
+
+</html>
