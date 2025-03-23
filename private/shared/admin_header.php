@@ -20,8 +20,6 @@
   <navigation>
     <ul>
       <?php if ($session->is_logged_in()) {
-        // Since we can't access admin_id directly, and there's no getter method,
-        // we'll use $_SESSION directly to get the admin_id
         $user_id = $_SESSION['admin_id'] ?? null;
         $current_user = $user_id ? Admin::find_by_id($user_id) : null;
         $user_name = $current_user ? $current_user->full_name() : 'Bae';
