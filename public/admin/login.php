@@ -1,5 +1,11 @@
 <?php
 require_once('../../private/initialize.php');
+echo "Current intended destination: " . ($_SESSION['intended_destination'] ?? 'Not set');
+if ($session->is_logged_in()) {
+  $redirect_to = $_SESSION['intended_destination'] ?? url_for('/admin/index.php');
+  unset($_SESSION['intended_destination']); // Clear it after use
+  redirect_to($redirect_to);
+}
 
 $errors = [];
 $username = '';
@@ -25,9 +31,16 @@ if (is_post_request()) {
     if ($admin != false && $admin->verify_password($password)) {
 
       $session->login($admin);
-      redirect_to(url_for('/admin/index.php'));
+      // Redirect to intended destination if set, otherwise to admin index
+      if (isset($_SESSION['intended_destination']) && !empty($_SESSION['intended_destination'])) {
+        $redirect_to = $_SESSION['intended_destination'];
+        unset($_SESSION['intended_destination']); // Clear it after use
+      } else {
+        $redirect_to = url_for('/admin/index.php');
+      }
+      redirect_to($redirect_to);
     } else {
-
+      // Login failed
       $errors[] = "Log in was unsuccessful.";
     }
   }
@@ -42,6 +55,7 @@ if (is_post_request()) {
   <h1>Log in</h1>
 
   <?php echo display_errors($errors); ?>
+  <?php echo display_session_message(); ?>
 
   <form action="login.php" method="post">
     Username:<br />

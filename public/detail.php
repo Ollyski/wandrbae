@@ -1,17 +1,18 @@
-<?php require_once('../private/initialize.php'); ?>
+<?php require_once('../private/initialize.php');
+require_login(); ?>
 <?php $page_title = 'Rides'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
 
 <?php
 
-  $id = $_GET['id'] ?? false;
+$id = $_GET['id'] ?? false;
 
-  if(!$id) {
-    redirect_to('ride.php');
-  }
+if (!$id) {
+  redirect_to('ride.php');
+}
 
-  $ride = Ride::find_by_id($id);
+$ride = Ride::find_by_id($id);
 ?>
 
 <div id="main">
@@ -52,17 +53,17 @@
 </div>
 
 <?php
-  $id = $_GET['id'] ?? false;
-  if(!$id) {
-    redirect_to('ride.php');
-  }
-  $ride = Ride::find_by_id($id);
-  
-  // Add this check
-  if($ride === false) {
-    echo "No ride found with ID: " . h($id);
-    exit();
-  }
+$id = $_GET['id'] ?? false;
+if (!$id) {
+  redirect_to('ride.php');
+}
+$ride = Ride::find_by_id($id);
+
+// Add this check
+if ($ride === false) {
+  echo "No ride found with ID: " . h($id);
+  exit();
+}
 ?>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>
