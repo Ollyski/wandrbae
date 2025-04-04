@@ -30,18 +30,17 @@ if (is_post_request()) {
 
     if ($admin != false && $admin->verify_password($password)) {
 
-      $session->login($admin);
-      // Redirect to intended destination if set, otherwise to admin index
+      $redirect_to = $session->login($admin);
+      redirect_to($redirect_to);
+      } else {
+      
       if (isset($_SESSION['intended_destination']) && !empty($_SESSION['intended_destination'])) {
         $redirect_to = $_SESSION['intended_destination'];
         unset($_SESSION['intended_destination']); // Clear it after use
       } else {
-        $redirect_to = url_for('/admin/index.php');
-      }
-      redirect_to($redirect_to);
-    } else {
       // Login failed
       $errors[] = "Log in was unsuccessful.";
+      }
     }
   }
 }

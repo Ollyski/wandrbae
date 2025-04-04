@@ -23,11 +23,20 @@ if (!isset($page_title)) {
         <h1>Wandrbae</h1>
         <p>Wander with us, bae.</p>
         <a href="<?php echo url_for('/index.php'); ?>">Home</a>
-
       </div>
       <div class="header-buttons">
-        <a href="<?php echo url_for('/join.php'); ?>" class="btn">Join Us</a>
-        <a href="<?php echo url_for('/admin/login.php'); ?>" class="btn">Log In</a>
+        <?php if ($session->is_logged_in()) { 
+          $user_id = $_SESSION['admin_id'] ?? null;
+          $current_user = $user_id ? Admin::find_by_id($user_id) : null;
+          $user_name = $current_user ? $current_user->full_name() : 'Bae';
+        ?>
+          <span>Welcome, <?php echo h($user_name); ?>!</span>
+          <a href="<?php echo url_for('/members/index.php'); ?>" class="btn">Member Area</a>
+          <a href="<?php echo url_for('/admin/logout.php'); ?>" class="btn">Log Out</a>
+        <?php } else { ?>
+          <a href="<?php echo url_for('/join.php'); ?>" class="btn">Join Us</a>
+          <a href="<?php echo url_for('/admin/login.php'); ?>" class="btn">Log In</a>
+        <?php } ?>
       </div>
     </div>
   </header>
@@ -36,7 +45,9 @@ if (!isset($page_title)) {
       <li><a href="<?php echo url_for('/members/routes/index.php'); ?>">Routes</a></li>
       <li><a href="<?php echo url_for('/ride.php'); ?>">Ride</a></li>
       <li><a href="<?php echo url_for('/about.php'); ?>">About</a></li>
-      <li><a href="<?php echo url_for('/join.php'); ?>">Join Us</a></li>
+      <?php if (!$session->is_logged_in()) { ?>
+        <li><a href="<?php echo url_for('/join.php'); ?>">Join Us</a></li>
+      <?php } ?>
       <li><a href="<?php echo url_for('/contact.php'); ?>">Contact Us</a></li>
     </ul>
   </nav>
