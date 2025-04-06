@@ -4,5 +4,6 @@
   "editor.quickSuggestions": {
     "strings": "on"
   },
-  "emmet.triggerExpansionOnTab": true
+  "emmet.triggerExpansionOnTab": true,
+  "liveServer.settings.port": 5501
 }
