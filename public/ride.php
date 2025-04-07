@@ -18,9 +18,9 @@
         <th>Address</th>
         <th>&nbsp;</th>
       </tr>
-<?php
-$rides = Ride::find_all();
-?>
+    <?php
+    $rides = Ride::find_all();
+    ?>
       <?php foreach($rides as $ride) { ?>
       <tr>
         <td><?php echo h($ride->ride_name); ?></td>

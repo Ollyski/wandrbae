@@ -14,7 +14,7 @@
 <body>
   <header>
     <h1>Welcome Bae!</h1>
-    <p><a href="<?php echo url_for('/index.php'); ?>">Home</a></p>
+    <p>Here are some upcoming rides!</p>
   </header>
 
   <navigation>
@@ -24,10 +24,10 @@
         $current_user = $user_id ? Admin::find_by_id($user_id) : null;
         $user_name = $current_user ? $current_user->full_name() : 'Bae';
       ?>
-        <li><a href="<?php echo url_for('/members/index.php'); ?>">Menu</a></li>
         <li><a href="<?php echo url_for('/admin/logout.php'); ?>">Logout <?php echo h($user_name); ?></a></li>
       <?php } ?>
     </ul>
+    
   </navigation>
 </body>
 

@@ -13,33 +13,33 @@ $result = mysqli_query($db, $sql);
 ?>
 
 <?php include(SHARED_PATH . '/public_header.php'); ?>
-
-<div class="container">
-    <h1>Explore Our Routes</h1>
-    
-    <div class="routes-list">
-        <?php while($route = mysqli_fetch_assoc($result)) { ?>
-        <div class="route-card">
-            <h2><?php echo h($route['route_name']); ?></h2>
-            <div class="route-card-content">
-                <div class="route-stats">
-                    <span class="route-stat"><?php echo h($route['distance_km']); ?> km</span>
-                    <span class="route-stat"><?php echo h($route['terrain_name']); ?></span>
-                    <span class="route-stat"><?php echo h($route['difficulty_type']); ?></span>
-                    <?php if($route['bike_lane']) { ?>
-                    <span class="route-stat badge">Bike Lane</span>
-                    <?php } ?>
-                </div>
-                <p class="route-description">
-                    <?php echo h($route['short_landmarks']); ?>...
-                </p>
-                <div class="route-actions">
-                    <a href="<?php echo url_for('/routes/view.php?id=' . $route['route_id']); ?>" class="btn btn-primary">View Route</a>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
-    </div>
-</div>
-
+<main role="main">
+  <div class="container">
+      <h2>Explore Our Routes</h2>
+      
+      <div class="routes-list">
+          <?php while($route = mysqli_fetch_assoc($result)) { ?>
+          <div class="route-card">
+              <h3><?php echo h($route['route_name']); ?></h3>
+              <div class="route-card-content">
+                  <div class="route-stats">
+                      <span class="route-stat"><?php echo h($route['distance_km']); ?> km</span>
+                      <span class="route-stat"><?php echo h($route['terrain_name']); ?></span>
+                      <span class="route-stat"><?php echo h($route['difficulty_type']); ?></span>
+                      <?php if($route['bike_lane']) { ?>
+                      <span class="route-stat badge">Bike Lane</span>
+                      <?php } ?>
+                  </div>
+                  <p class="route-description">
+                      <?php echo h($route['short_landmarks']); ?>...
+                  </p>
+                  <div class="route-actions">
+                      <a href="<?php echo url_for('/routes/view.php?id=' . $route['route_id']); ?>" class="btn btn-primary">View Route</a>
+                  </div>
+              </div>
+          </div>
+          <?php } ?>
+      </div>
+  </div>
+</main>
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

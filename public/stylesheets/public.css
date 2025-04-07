@@ -2,10 +2,6 @@ body {
   margin: 0;
 }
 
-.banner {
-  background-color: rgb(248, 132, 0);
-}
-
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -40,7 +36,7 @@ body {
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
-  background-color: rgb(248, 132, 0);
+  background-color: #35495e;
   border-bottom: 10px solid #914915;
 }
 
@@ -57,8 +53,12 @@ body {
   margin-left: auto;
 }
 
+main, #main {
+  background-color: #6cb393;
+}
+
 nav {
-  background-color: rgb(248, 132, 0);
+  background-color: rgb(235, 106, 0);
   border-left: none;
   border-right: none;
   box-sizing: border-box;
@@ -95,7 +95,7 @@ nav ul li a {
 
 
 .btn {
-  background-color: rgb(248, 132, 0); 
+  background-color: #bd5500; 
   color: white;
   padding: 10px 20px; 
   border-radius: 25px; 
@@ -105,9 +105,19 @@ nav ul li a {
 }
 
 .btn:hover {
-  background-color: rgb(235, 106, 0);
+  background-color: rgb(250, 122, 16);
 }
 
 section {
   padding: 20px;
+}
+
+footer {
+  background-color: #35495e;
+}
+
+footer p {
+  margin: 0;
+  padding: 1rem;
+  color: #fff;
 }
