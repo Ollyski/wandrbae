@@ -80,10 +80,11 @@ nav ul li {
   padding: 5px 15px;
 }
 
+/**STICK ANIMATION ON HERE**/
 nav ul li:hover {
   background-color: rgb(235, 106, 0);
   border-radius: 8px;
-  STICK ANIMATION ON HERE
+  
 }
 
 nav ul li a {
@@ -120,4 +121,119 @@ footer p {
   margin: 0;
   padding: 1rem;
   color: #fff;
+}
+
+/**Card Css**/
+.intro {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.intro h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.intro p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.rides-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 1rem;
+}
+
+.ride-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ride-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.ride-header {
+  background-color: #3498db;
+  color: white;
+  padding: 1rem;
+}
+
+.ride-name {
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.ride-creator {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+.ride-info {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.ride-detail {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.ride-detail-icon {
+  margin-right: 8px;
+  color: #7f8c8d;
+  width: 20px;
+  text-align: center;
+}
+
+.ride-detail-text {
+  flex: 1;
+  color: #444;
+}
+
+.ride-detail-label {
+  font-weight: 600;
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.ride-footer {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+  margin-top: auto;
+}
+
+.view-btn {
+  display: inline-block;
+  background-color: #3498db;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn:hover {
+  background-color: #2980b9;
 }
