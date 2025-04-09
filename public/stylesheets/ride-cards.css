@@ -1,0 +1,252 @@
+/* ride-cards.css */
+
+/* Container */
+.ride-cards-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.ride-cards-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ride-cards-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.ride-cards-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.ride-filter-control {
+  display: flex;
+  align-items: center;
+}
+
+.past-rides-checkbox {
+  margin-right: 8px;
+}
+
+/* Grid layout */
+.ride-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .ride-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ride-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card styles */
+.ride-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.ride-card:hover {
+  transform: translateY(-5px);
+}
+
+.ride-card.upcoming {
+  border: 2px solid #3498db;
+}
+
+.ride-card.past {
+  border: 1px solid #ddd;
+  opacity: 0.8;
+}
+
+/* Card image */
+.ride-card-image-container {
+  position: relative;
+}
+
+.ride-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.past-ride-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Card content */
+.ride-card-content {
+  padding: 15px;
+}
+
+.ride-card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ride-card-creator {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.ride-card-details, .ride-location-details {
+  margin-bottom: 15px;
+}
+
+.detail-label {
+  font-weight: bold;
+}
+
+.location-address {
+  font-size: 0.9rem;
+}
+
+/* Difficulty tags */
+.ride-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.difficulty-tag {
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  display: inline-block;
+}
+
+.difficulty-easy {
+  background-color: #c6f6d5;
+  color: #2f855a;
+}
+
+.difficulty-medium {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.difficulty-hard {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.difficulty-unknown {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.btn-create {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.btn-create:hover {
+  background-color: #27ae60;
+}
+
+.btn-view {
+  background-color: #3498db;
+  color: white;
+  flex: 1;
+}
+
+.btn-view:hover {
+  background-color: #2980b9;
+}
+
+.btn-signup {
+  background-color: #9b59b6;
+  color: white;
+  flex: 1;
+}
+
+.btn-signup:hover {
+  background-color: #8e44ad;
+}
+
+.btn-edit {
+  background-color: #f39c12;
+  color: white;
+  flex: 1;
+}
+
+.btn-edit:hover {
+  background-color: #d35400;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+  flex: 1;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+}
+
+/* Button containers */
+.ride-card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Loading and error states */
+.loading-message, .error-message, .no-rides-message {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.error-message {
+  color: #e74c3c;
+}
+
+.no-rides-message p {
+  margin-bottom: 10px;
+}
