@@ -8,7 +8,6 @@
                   } ?></title>
   <meta charset="utf-8">
   <link rel="stylesheet" media="all" href="../stylesheets/members.css" />
-  <link rel="stylesheet" media="all" href="../stylesheets/ride-cards.css" />
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
 </head>
 
