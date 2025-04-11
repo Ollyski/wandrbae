@@ -54,8 +54,8 @@
           </div>
           
           <div class="ride-footer">
-            <a href="detail.php?id=<?php echo $ride->ride_id; ?>" class="view-btn">View Details</a>
-            <a href="signup.php?ride_id=<?php echo $ride->ride_id; ?>" class="btn signup-btn">Sign Up</a>
+            <a href="detail.php?id=<?php echo $ride->ride_id; ?>" class="btn">View Details</a>
+            <a href="<?php echo url_for('members/rides/signup.php?ride_id=' . $ride->ride_id); ?>" class="btn">Sign Up</a>
           </div>
         </div>
       <?php } ?>
