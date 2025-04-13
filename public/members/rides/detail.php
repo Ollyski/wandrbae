@@ -21,11 +21,11 @@ if ($ride === false) {
 // Get the number of current participants
 $current_participants = RideParticipant::count_participants_for_ride($id);
 
-// Check if current user is signed up (if logged in)
+// Check if current member is signed up (if logged in)
 $is_signed_up = false;
-if ($session->is_logged_in()) {
-  $user_id = $session->get_user_id();
-  $is_signed_up = RideParticipant::is_user_signed_up($user_id, $id);
+if ($member_session->is_logged_in()) {
+  $member_id = $member_session->get_member_id();
+  $is_signed_up = RideParticipant::is_user_signed_up($member_id, $id);
 }
 ?>
 
@@ -37,7 +37,7 @@ if ($session->is_logged_in()) {
 
   <div id="page">
 
-    <div class="detail">
+    <div>
       <h1><?php echo h($ride->ride_name); ?></h1>
 
       <dl>
@@ -65,17 +65,17 @@ if ($session->is_logged_in()) {
         <dd><?php echo $current_participants; ?> rider(s)</dd>
       </dl>
 
-      <div class="signup-area">
-        <?php if ($session->is_logged_in()) { ?>
+      <div>
+        <?php if ($member_session->is_logged_in()) { ?>
           <?php if ($is_signed_up) { ?>
-            <p class="alert success">You are signed up for this ride!</p>
+            <p>You are signed up for this ride!</p>
 
             <form action="<?php echo url_for('/members/rides/cancel_signup.php'); ?>" method="post">
               <input type="hidden" name="ride_id" value="<?php echo h($id); ?>">
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel your signup?');">Cancel My Signup</button>
+              <button type="submit" onclick="return confirm('Are you sure you want to cancel your signup?');">Cancel My Signup</button>
             </form>
           <?php } else { ?>
-            <a href="<?php echo url_for('/members/rides/signup.php?ride_id=' . h($id)); ?>" class="btn">Sign Up for This Ride</a>
+            <a href="<?php echo url_for('/members/rides/signup.php?ride_id=' . h($id)); ?>">Sign Up for This Ride</a>
           <?php } ?>
         <?php } else { ?>
           <p>Please <a href="<?php echo url_for('/login.php'); ?>">login</a> to sign up for this ride.</p>

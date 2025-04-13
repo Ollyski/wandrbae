@@ -37,5 +37,6 @@ $db = db_connect();
 ride::set_database($db);
 
 $session = new Session;
+$member_session = new MemberSession;
 
 DatabaseObject::set_database($db);

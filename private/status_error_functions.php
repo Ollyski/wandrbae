@@ -7,6 +7,17 @@ function require_login()
     redirect_to(url_for('/admin/login.php'));
   }
 }
+
+// New function for member login requirement
+function require_member_login()
+{
+  global $member_session;
+  if (!$member_session->is_logged_in()) {
+    $_SESSION['intended_destination'] = $_SERVER['REQUEST_URI'];
+    redirect_to(url_for('/login.php'));
+  }
+}
+
 function require_admin()
 {
   global $session;
@@ -40,6 +51,17 @@ function current_user()
   }
 }
 
+// New function to get current member
+function current_member()
+{
+  global $member_session;
+  if ($member_session->is_logged_in()) {
+    return Member::find_by_id($member_session->get_member_id());
+  } else {
+    return false;
+  }
+}
+
 function has_role($role_id)
 {
   $user = current_user();
@@ -67,6 +89,7 @@ function can_access($page_type)
       return false;
   }
 }
+
 function display_errors($errors = array())
 {
   $output = '';
