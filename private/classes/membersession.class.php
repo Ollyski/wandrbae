@@ -26,7 +26,7 @@ class MemberSession
       $this->last_login = $_SESSION['last_login'];
 
       // If there was an intended destination, get it
-      $intended_destination = $_SESSION['intended_destination'] ?? url_for('/index.php');
+      $intended_destination = $_SESSION['intended_destination'] ?? url_for('/ride.php');
       unset($_SESSION['intended_destination']);
 
       // Set a welcome message
