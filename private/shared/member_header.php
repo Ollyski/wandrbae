@@ -7,17 +7,21 @@
                     echo ' - ' . h($page_title);
                   } ?></title>
   <meta charset="utf-8">
-  <link rel="stylesheet" media="all" href="../stylesheets/members.css" />
+  <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/members.css'); ?>" />
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
 </head>
 
 <body>
-  <header>
-    <h1>Welcome Bae!</h1>
-    <p>Good to see you again. Here are some upcoming rides!</p>
-  </header>
-
-  <navigation>
+  <header id="page-header" role="banner" aria-label="document-header">
+      <div class="header-content">
+        <div class="header-text">
+          <h1>Welcome Bae!</h1>
+          <img src="<?php echo url_for('/images/test.png'); ?>" id="logo" alt="WandrBae logo" width="75" height="75">
+          <p>Good to see you again!</p>
+        </div>
+      </div>
+    </header>
+  <nav>
     <ul>
       <?php if ($session->is_logged_in()) {
         $user_id = $_SESSION['admin_id'] ?? null;
@@ -38,7 +42,5 @@
         <li><a href="<?php echo url_for('/contact.php'); ?>">Contact Us</a></li>
       </ul>
     
-  </navigation>
-</body>
-
-</html>
+    </nav>
+ 

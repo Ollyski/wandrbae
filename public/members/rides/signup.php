@@ -59,44 +59,46 @@ if (is_post_request()) {
 
 <div id="content">
   <div id="main">
-    <a href="<?php echo url_for('/public/ride.php'); ?>">&laquo; Back to Rides</a>
+    <section>
+      <a class="back-to-rides" href="<?php echo url_for('/public/ride.php'); ?>">&laquo; Back to Rides</a>
 
-    <div id="page">
-      <h1>Sign Up for Ride: <?php echo h($ride->ride_name); ?></h1>
+      <div id="page">
+        <h1>Sign Up for Ride: <?php echo h($ride->ride_name); ?></h1>
 
-      <?php echo display_session_message(); ?>
+        <?php echo display_session_message(); ?>
 
-      <div>
-        <p><strong>Starts At:</strong> <?php echo h($ride->start_time); ?></p>
-        <p><strong>Ends At:</strong> <?php echo h($ride->end_time); ?></p>
-        <p><strong>Location:</strong> <?php echo h($ride->location_name); ?></p>
-        <p><strong>Address:</strong> <?php echo h($ride->street_address); ?></p>
-
-        <?php
-        // Get the number of current participants
-        $current_participants = RideParticipant::count_participants_for_ride($ride_id);
-        ?>
-        <p><strong>Current Participants:</strong> <?php echo $current_participants; ?></p>
-      </div>
-
-      <?php if ($already_signed_up) { ?>
         <div>
-          <p>You are already signed up for this ride!</p>
+          <p><strong>Starts At:</strong> <?php echo h($ride->start_time); ?></p>
+          <p><strong>Ends At:</strong> <?php echo h($ride->end_time); ?></p>
+          <p><strong>Location:</strong> <?php echo h($ride->location_name); ?></p>
+          <p><strong>Address:</strong> <?php echo h($ride->street_address); ?></p>
 
-          <form action="<?php echo url_for('/members/rides/cancel_signup.php'); ?>" method="post">
-            <input type="hidden" name="ride_id" value="<?php echo h($ride_id); ?>">
-            <button type="submit" onclick="return confirm('Are you sure you want to cancel your signup?');">Cancel My Signup</button>
-          </form>
+          <?php
+          // Get the number of current participants
+          $current_participants = RideParticipant::count_participants_for_ride($ride_id);
+          ?>
+          <p><strong>Current Participants:</strong> <?php echo $current_participants; ?></p>
         </div>
-      <?php } else { ?>
-        <form action="<?php echo url_for('/members/rides/signup.php?ride_id=' . h($ride_id)); ?>" method="post">
-          <p>Would you like to sign up for this ride?</p>
 
-          <button type="submit">Sign Up</button>
-        </form>
-      <?php } ?>
-    </div>
+        <?php if ($already_signed_up) { ?>
+          <div>
+            <p>You are already signed up for this ride!</p>
+
+            <form action="<?php echo url_for('/members/rides/cancel_signup.php'); ?>" method="post">
+              <input type="hidden" name="ride_id" value="<?php echo h($ride_id); ?>">
+              <button type="submit" onclick="return confirm('Are you sure you want to cancel your signup?');">Cancel My Signup</button>
+            </form>
+          </div>
+        <?php } else { ?>
+          <form action="<?php echo url_for('/members/rides/signup.php?ride_id=' . h($ride_id)); ?>" method="post">
+            <p>Would you like to sign up for this ride?</p>
+
+            <button type="submit">Sign Up</button>
+          </form>
+        <?php } ?>
+      </div>
+    </section>
   </div>
 </div>
 
-<?php include(SHARED_PATH . '/member_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

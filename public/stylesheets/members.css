@@ -1,30 +1,273 @@
-h1 {
-  color: #008000;
-  text-decoration: underline;
+body {
+  margin: 0;
 }
 
-table {
-  border-collapse: collapse;
-  vertical-align: top;
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  
 }
 
-.list th {
+.header-text {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap:15px
+
+}
+.header-text h1,
+.header-text p {
+  margin: 0;
+}
+
+.header-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#logo {
+  display: block;
+  order: -1;
+}
+
+#page-header {
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #35495e;
+  border-bottom: 10px solid #914915;
+}
+
+#page-header > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+main, #main {
+  background-color: #6cb393;
+}
+
+nav {
+  background-color: rgb(235, 106, 0);
+  border-left: none;
+  border-right: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  box-sizing: border-box;
+  border: 6px solid transparent;
+  padding: 5px 15px;
+}
+
+/**STICK ANIMATION ON HERE**/
+nav ul li:hover {
+  background-color: #fa7a10;
+  border-radius: 8px;
+  
+}
+
+nav ul li a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.back-to-rides {
+  background-color: #bd5500;
+  border-radius: 25px; 
+  color: #fff;
+  padding: .5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-to-rides:hover {
+  background-color: #fa7a10;
+}
+
+.btn, button, .action:hover {
+  background-color: #bd5500; 
+  border: none;
+  color: white;
+  padding: 10px 20px; 
+  border-radius: 25px; 
+  text-align: center; 
+  text-decoration: none; 
+  font-weight: bold; 
+}
+
+.btn:hover, button:hover, .action:hover {
+  background-color: #fa7a10;
+}
+
+section {
+  padding: 20px;
+}
+
+footer {
+  background-color: #35495e;
+}
+
+footer p {
+  margin: 0;
+  padding: 1rem;
   color: #fff;
 }
 
-table.list {
-  width: 100%;
+/**Card Css**/
+.intro {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  background-color: #347474;
+  border-radius: 8px;
 }
 
-table.list tr td {
-  border: 1px solid #999999;
+.intro h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
-table.list tr th {
-  border: 1px solid #008000;
-  background: #008000;
-  color: rgb(26, 24, 24);
-  text-align: left;
+.intro p {
+  font-size: 1.2rem;
+  color: #666;
 }
 
-/***Add logout-button CSS***
+.rides-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 1rem;
+}
+
+.ride-card {
+  border-radius: 8px;
+  overflow: visible; /* Important - allow the border to extend outside the card */
+  background-color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease;
+  box-shadow: none;
+}
+
+
+.ride-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.ride-header {
+  background-color: #347474;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ride-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;     /* Position slightly outside the card */
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 10px; /* Slightly larger than the card's border-radius */
+  background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
+  background-size: 300% 100%;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ride-card:hover::before {
+  opacity: 1;
+  animation: moveGradient 4s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.ride-name {
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.ride-creator {
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+.ride-info {
+  padding: 1rem;
+  flex-grow: 1;
+  background-color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.ride-detail {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.ride-detail-icon {
+  margin-right: 8px;
+  color: #7f8c8d;
+  width: 20px;
+  text-align: center;
+}
+
+.ride-detail-text {
+  flex: 1;
+  color: #444;
+}
+
+.ride-detail-label {
+  font-weight: 600;
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.ride-footer {
+  background-color: #f7f6f6;
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+  margin-top: auto;
+  border-radius: 0 0 8px 8px;
+  position: relative;
+  z-index: 1;
+}
+

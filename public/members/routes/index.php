@@ -15,6 +15,7 @@ $result = mysqli_query($db, $sql);
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 <main role="main">
   <div class="container">
+    <section>
       <h2>Explore Our Routes</h2>
       
       <div class="routes-list">
@@ -40,6 +41,7 @@ $result = mysqli_query($db, $sql);
           </div>
           <?php } ?>
       </div>
+    </section>
   </div>
 </main>
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

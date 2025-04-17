@@ -2,29 +2,31 @@
 
 class Member extends DatabaseObject
 {
-  protected static $table_name = 'user'; // Assuming you're using the 'user' table for members
-  protected static $db_columns = ['user_id', 'username', 'email', 'hashed_password', 'first_name', 'last_name', 'created_at'];
+  protected static $table_name = 'user';
+  protected static $db_columns = ['user_id', 'username', 'email', 'hashed_password', 'first_name', 'last_name', 'user_role_id', 'is_member'];
 
   public $user_id;
   public $username;
   public $email;
-  public $hashed_password;
+  protected $hashed_password;
   public $first_name;
   public $last_name;
-  public $created_at;
-  protected $password;
+  public $user_role_id;
+  public $is_member;
+  public $password;
   public $confirm_password;
   public $errors = [];
 
   public function __construct($args = [])
   {
-    $this->username = $args['username'] ?? '';
-    $this->email = $args['email'] ?? '';
     $this->first_name = $args['first_name'] ?? '';
     $this->last_name = $args['last_name'] ?? '';
-    $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
+    $this->email = $args['email'] ?? '';
+    $this->username = $args['username'] ?? '';
     $this->password = $args['password'] ?? '';
     $this->confirm_password = $args['confirm_password'] ?? '';
+    $this->user_role_id = $args['user_role_id'] ?? 1;
+    $this->is_member = $args['is_member'] ?? 1;
   }
 
   public function full_name()
@@ -34,11 +36,16 @@ class Member extends DatabaseObject
 
   protected function set_hashed_password()
   {
-    $this->hashed_password = password_hash($this->password, PASSWORD_BCRYPT);
+    if(!empty($this->password)) {
+      $this->hashed_password = password_hash($this->password, PASSWORD_BCRYPT);
+    }
   }
 
   public function verify_password($password)
   {
+    if (empty($this->hashed_password)) {
+      return false;
+    }
     return password_verify($password, $this->hashed_password);
   }
 
@@ -136,10 +143,11 @@ class Member extends DatabaseObject
       return false;
     }
 
-    $this->set_hashed_password();
+    if ($this->password != '') {
+      $this->set_hashed_password();
+    }
 
-    $attributes = $this->sanitized_attributes();
-
+    $attributes = $this->attributes();
     $sql = "INSERT INTO " . static::$table_name . " (";
     $sql .= join(', ', array_keys($attributes));
     $sql .= ") VALUES ('";
@@ -162,9 +170,11 @@ class Member extends DatabaseObject
 
     if ($this->password != '') {
       $this->set_hashed_password();
+    } else {
+      // Skip password validation
     }
 
-    $attributes = $this->sanitized_attributes();
+    $attributes = $this->attributes();
     $attribute_pairs = [];
     foreach ($attributes as $key => $value) {
       $attribute_pairs[] = "{$key}='{$value}'";
@@ -177,5 +187,29 @@ class Member extends DatabaseObject
 
     $result = self::$database->query($sql);
     return $result;
+  }
+  
+  public function attributes()
+  {
+    $attributes = [];
+    foreach (static::$db_columns as $column) {
+      if ($column == 'user_id') {
+        continue;
+      }
+
+      // Special handling for hashed_password
+      if ($column == 'hashed_password') {
+        // Only include hashed_password if it's been set
+        if (isset($this->hashed_password)) {
+          $attributes[$column] = $this->hashed_password;
+        }
+      } else {
+        // For other attributes
+        if (property_exists($this, $column)) {
+          $attributes[$column] = $this->$column;
+        }
+      }
+    }
+    return $attributes;
   }
 }

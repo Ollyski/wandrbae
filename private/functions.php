@@ -8,14 +8,13 @@
     return WWW_ROOT . $script_path;
   }
 
-  //maybe this bit
+
   function u($string="") {
     if(is_null($string)) {
       $string = "";
     }
     return urlencode($string);
   }
- //maybe
 
   function raw_u($string="") {
     if(is_null($string)) {
@@ -57,4 +56,5 @@
   function is_get_request() {
     return $_SERVER['REQUEST_METHOD'] == 'GET';
   }
+
 ?>
