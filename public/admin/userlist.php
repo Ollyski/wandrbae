@@ -45,9 +45,9 @@ $users = Admin::find_all();
                 <td><?php echo h($user->username ?? ''); ?></td>
                 <td><?php echo h($user->getRoleName() ?? ''); ?></td>
                 <td>
-                  <a class="btn" href="<?php echo url_for('/admin/show_user.php?id=' . h(u($user->user_id ?? ''))); ?>">View</a>
-                  <a class="btn" href="<?php echo url_for('/admin/edit_user.php?id=' . h(u($user->user_id ?? ''))); ?>">Edit</a>
-                  <a class="btn" href="<?php echo url_for('/admin/delete_user.php?id=' . h(u($user->user_id ?? ''))); ?>">Delete</a>
+                  <a class="table-action" href="<?php echo url_for('/admin/show_user.php?id=' . h(u($user->user_id ?? ''))); ?>">View</a>
+                  <a class="table-action" href="<?php echo url_for('/admin/edit_user.php?id=' . h(u($user->user_id ?? ''))); ?>">Edit</a>
+                  <a class="table-action" href="<?php echo url_for('/admin/delete_user.php?id=' . h(u($user->user_id ?? ''))); ?>">Delete</a>
                 </td>
               </tr>
             <?php } ?>

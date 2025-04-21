@@ -14,4 +14,4 @@
 </main>
 
 </html>
-<?php include(SHARED_PATH . '/member_footer.php') ?>
+<?php include(SHARED_PATH . '/public_footer.php') ?>

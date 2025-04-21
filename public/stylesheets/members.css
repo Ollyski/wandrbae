@@ -126,8 +126,6 @@ section {
   padding: 20px;
 }
 
-
-
 footer {
   background-color: #35495e;
 }
@@ -273,22 +271,24 @@ footer p {
   z-index: 1;
 }
 
-
 /* Table Responsive CSS - Modified to integrate with existing styles */
 /* Keep specific table styles while allowing body and general styles to remain from original CSS */
 .container th h1 {
   font-weight: bold;
-  font-size: 1em;
-  text-align: left;
-  color: #185875;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #42b883;
 }
 
 .container td {
-  font-weight: normal;
+  color: #61b402;
+  font-weight: bold;
   font-size: 1em;
   -webkit-box-shadow: 0 2px 2px -2px #0E1119;
   -moz-box-shadow: 0 2px 2px -2px #0E1119;
   box-shadow: 0 2px 2px -2px #0E1119;
+  text-align: center;
+  border-radius: 5px;
 }
 
 .container {
@@ -297,19 +297,16 @@ footer p {
   width: 80%;
   margin: 0 auto;
   display: table;
-  padding: 0 0 4em 0;
-  border-radius: 8px;
+  padding: 1rem;
 }
 
 .container td, .container th {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  padding-left: 1rem;  
+  padding: .5rem;  
 }
 
 /* Background-color of the odd rows */
 .container tr:nth-child(odd) {
-  background-color: #323C50;
+  background-color: #465063;
 }
 
 /* Background-color of the even rows */
@@ -319,27 +316,31 @@ footer p {
 
 .container th {
   background-color: #1F2739;
+  text-align: center;
+  border-radius: 5px;
 }
 
 .container td:first-child { 
-  color: #FB667A; 
+  color: #ff7e67; 
+}
+
+.container tr a {
+  
 }
 
 .container tr:hover {
-  background-color: #464A52;
-  -webkit-box-shadow: 0 6px 6px -6px #0E1119;
-  -moz-box-shadow: 0 6px 6px -6px #0E1119;
-  box-shadow: 0 6px 6px -6px #0E1119;
+  background-color: #b97918;
+  -webkit-box-shadow: 0 6px 6px -6px #b97918;
+  -moz-box-shadow: 0 6px 6px -6px #b97918;
+  box-shadow: 0 6px 6px -6px #b97918;
 }
 
 .container td:hover {
   background-color: #FFF842;
   color: #403E10;
   font-weight: bold;
-  
   box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
   transform: translate3d(6px, -6px, 0);
-  
   transition-delay: 0s;
   transition-duration: 0.4s;
   transition-property: all;
@@ -362,6 +363,10 @@ footer p {
   color: #403E10;
 }
 
+.table-action {
+  color: #000;
+}
+
 /* Keep the section styling consistent with your design */
 .userlist section {
   background-color: #6cb393;
@@ -370,9 +375,9 @@ footer p {
 }
 
 .userlist h1 {
-  color: #35495e;
+  color: #050505;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: .5rem;
 }
 
 /* Override default action link to match your buttons */

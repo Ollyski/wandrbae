@@ -167,7 +167,7 @@ footer p {
 
 .ride-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.35);
 }
 
 .ride-header {
