@@ -1,4 +1,5 @@
-<?php require_once('../private/initialize.php'); ?>
+<?php require_once('../private/initialize.php');
+require_member_login(); ?>
 <?php $page_title = 'Rides'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
@@ -21,11 +22,10 @@ if ($ride === false) {
 // Get the number of current participants
 $current_participants = RideParticipant::count_participants_for_ride($id);
 
-// Check if current member is signed up (if logged in)
 $is_signed_up = false;
-if ($member_session->is_logged_in()) {
-  $member_id = $member_session->get_member_id();
-  $is_signed_up = RideParticipant::is_user_signed_up($member_id, $id);
+if ($user_session->is_logged_in()) {
+  $user_id = $user_session->get_user_id();
+  $is_signed_up = RideParticipant::is_user_signed_up($user_id, $id);
 }
 ?>
 
@@ -66,7 +66,7 @@ if ($member_session->is_logged_in()) {
       </dl>
 
       <div>
-        <?php if ($member_session->is_logged_in()) { ?>
+        <?php if ($user_session->is_logged_in()) { ?>
           <?php if ($is_signed_up) { ?>
             <p>You are signed up for this ride!</p>
 

@@ -1,6 +1,6 @@
 <?php
 require_once('../../private/initialize.php');
-require_admin();
+require_admin_login();
 
 $page_title = 'Ride Participants';
 include(SHARED_PATH . '/admin_header.php');
@@ -54,10 +54,10 @@ $participant_count = RideParticipant::count_participants_for_ride($ride_id);
           <th>&nbsp;</th>
         </tr>
 
-        <?php foreach ($participants as $member) {
+        <?php foreach ($participants as $user) {
           // Get joined_at date
           $sql = "SELECT joined_at FROM ride_participant ";
-          $sql .= "WHERE user_id='" . db_escape($member->user_id) . "' ";
+          $sql .= "WHERE user_id='" . db_escape($user->user_id) . "' ";
           $sql .= "AND ride_id='" . db_escape($ride_id) . "' ";
           $sql .= "LIMIT 1";
 
@@ -66,13 +66,13 @@ $participant_count = RideParticipant::count_participants_for_ride($ride_id);
           $joined_at = $joined_record['joined_at'] ?? 'N/A';
         ?>
           <tr>
-            <td><?php echo h($member->username); ?></td>
-            <td><?php echo h($member->email); ?></td>
-            <td><?php echo h($member->first_name . ' ' . $member->last_name); ?></td>
+            <td><?php echo h($user->username); ?></td>
+            <td><?php echo h($user->email); ?></td>
+            <td><?php echo h($user->first_name . ' ' . $user->last_name); ?></td>
             <td><?php echo h($joined_at); ?></td>
             <td>
-              <a class="action" href="<?php echo url_for('/admin/members/show.php?id=' . h(u($member->user_id))); ?>">View</a>
-              <a class="action" href="<?php echo url_for('/admin/rides/remove_participant.php?ride_id=' . h(u($ride_id)) . '&user_id=' . h(u($member->user_id))); ?>" onclick="return confirm('Are you sure you want to remove this participant?');">Remove</a>
+              <a class="action" href="<?php echo url_for('/admin/members/show.php?id=' . h(u($user->user_id))); ?>">View</a>
+              <a class="action" href="<?php echo url_for('/admin/rides/remove_participant.php?ride_id=' . h(u($ride_id)) . '&user_id=' . h(u($user->user_id))); ?>" onclick="return confirm('Are you sure you want to remove this participant?');">Remove</a>
             </td>
           </tr>
         <?php } ?>

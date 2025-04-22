@@ -57,4 +57,13 @@
     return $_SERVER['REQUEST_METHOD'] == 'GET';
   }
 
+  function require_admin_login() {
+    global $user_session;
+    
+    if (!$user_session->is_admin()) {
+      $_SESSION['intended_destination'] = $_SERVER['REQUEST_URI'];
+      redirect_to(url_for('/admin/login.php'));
+    }
+  }
+  
 ?>

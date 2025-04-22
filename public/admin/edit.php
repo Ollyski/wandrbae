@@ -1,22 +1,22 @@
 <?php
 
 require_once('../../private/initialize.php');
-
+require_admin_login();
 
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/admin/index.php'));
 }
 $id = $_GET['id'];
-$admin = Admin::find_by_id($id);
-if($admin == false) {
+$user = User::find_by_id($id);
+if($user == false) {
   redirect_to(url_for('/admin/index.php'));
 }
 
 if(is_post_request()) {
 
-  $args = $_POST['admin'];
-  $admin->merge_attributes($args);
-  $result = $admin->save();
+  $args = $_POST['user'];
+  $user->merge_attributes($args);
+  $result = $user->save();
 
   if($result === true) {
     $_SESSION['message'] = 'The admin was updated successfully.';
@@ -41,7 +41,7 @@ if(is_post_request()) {
   <div>
     <h1>Edit Admin</h1>
 
-    <?php echo display_errors($admin->errors); ?>
+    <?php echo display_errors($user->errors); ?>
 
     <form action="<?php echo url_for('/admin/edit.php?id=' . h(u($id))); ?>" method="post">
 

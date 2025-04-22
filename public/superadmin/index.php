@@ -2,7 +2,7 @@
 <?php require_login(); ?>
 <?php
 
-$admin = Admin::find_all();
+$user = User::find_all();
 
 ?>
 <?php $page_title = 'Admins'; ?>
@@ -29,16 +29,16 @@ $admin = Admin::find_all();
           <th>&nbsp;</th>
         </tr>
 
-        <?php foreach($admin as $admin) { ?>
+        <?php foreach($user as $user) { ?>
           <tr>
-            <td><?php echo h($admin->user_id); ?></td>
-            <td><?php echo h($admin->first_name); ?></td>
-            <td><?php echo h($admin->last_name); ?></td>
-            <td><?php echo h($admin->email); ?></td>
-            <td><?php echo h($admin->username); ?></td>
-            <td><a class="action" href="<?php echo url_for('/admin/show.php?id=' . h(u($admin->user_id))); ?>">View</a></td>
-            <td><a class="action" href="<?php echo url_for('/admin/edit.php?id=' . h(u($admin->user_id))); ?>">Edit</a></td>
-            <td><a class="action" href="<?php echo url_for('/admin/delete.php?id=' . h(u($admin->user_id))); ?>">Delete</a></td>
+            <td><?php echo h($user->user_id); ?></td>
+            <td><?php echo h($user->first_name); ?></td>
+            <td><?php echo h($user->last_name); ?></td>
+            <td><?php echo h($user->email); ?></td>
+            <td><?php echo h($user->username); ?></td>
+            <td><a class="action" href="<?php echo url_for('/admin/show.php?id=' . h(u($user->user_id))); ?>">View</a></td>
+            <td><a class="action" href="<?php echo url_for('/admin/edit.php?id=' . h(u($user->user_id))); ?>">Edit</a></td>
+            <td><a class="action" href="<?php echo url_for('/admin/delete.php?id=' . h(u($user->user_id))); ?>">Delete</a></td>
           </tr>
         <?php } ?>
       </table>

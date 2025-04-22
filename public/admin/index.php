@@ -1,8 +1,8 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_login(); ?>
+<?php require_admin_login(); ?>
 <?php
 
-$admin = Admin::find_all();
+$user = User::find_all();
 
 ?>
 <?php $page_title = 'Admins'; ?>

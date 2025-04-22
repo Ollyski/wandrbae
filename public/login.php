@@ -20,11 +20,11 @@ if(is_post_request()) {
 
   // If no errors, try to login
   if(empty($errors)) {
-    $member = Member::find_by_username($username);
+    $user = User::find_by_username($username);
     
-    if($member && $member->verify_password($password)) {
+    if($user && $user->verify_password($password)) {
       // Password matches
-      $member_session->login($member);
+      $user_session->login($user);
       redirect_to(url_for('/index.php'));
     } else {
       // Username was not found or password did not match

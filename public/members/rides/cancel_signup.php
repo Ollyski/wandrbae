@@ -10,18 +10,15 @@ if (is_post_request()) {
     redirect_to(url_for('/public/ride.php'));
   }
 
-  // Get current member
-  $member_id = $member_session->get_member_id();
+  $user_id = $user_session->get_user_id();
 
-  // Find the participant
-  $participant = RideParticipant::find_participant($ride_id, $member_id);
+  $participant = RideParticipant::find_participant($ride_id, $user_id);
 
   if (!$participant) {
     $_SESSION['message'] = 'You are not signed up for this ride.';
     redirect_to(url_for('/public/ride.php'));
   }
 
-  // Delete the participation record
   $result = $participant->delete();
 
   if ($result) {
@@ -32,6 +29,5 @@ if (is_post_request()) {
 
   redirect_to(url_for('/public/ride.php'));
 } else {
-  // Not a POST request, redirect
   redirect_to(url_for('/public/ride.php'));
 }

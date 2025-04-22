@@ -1,18 +1,17 @@
 <?php
 function require_login()
 {
-  global $session;
-  if (!$session->is_logged_in()) {
+  global $user_session;
+  if (!$user_session->is_logged_in()) {
     $_SESSION['intended_destination'] = $_SERVER['REQUEST_URI'];
     redirect_to(url_for('/admin/login.php'));
   }
 }
 
-// New function for member login requirement
-function require_member_login()
-{
-  global $member_session;
-  if (!$member_session->is_logged_in()) {
+function require_member_login() {
+  global $user_session;
+  
+  if(!$user_session->is_logged_in()) {
     $_SESSION['intended_destination'] = $_SERVER['REQUEST_URI'];
     redirect_to(url_for('/login.php'));
   }
@@ -20,9 +19,9 @@ function require_member_login()
 
 function require_admin()
 {
-  global $session;
+  global $user_session;
   require_login();
-  $current_user = Admin::find_by_id($session->get_admin_id());
+  $current_user = User::find_by_id($user_session->get_admin_id());
   if (!$current_user || !$current_user->isAdmin()) {
     $_SESSION['message'] = "You do not have permission to access that page.";
     redirect_to(url_for('/admin/index.php'));
@@ -31,10 +30,10 @@ function require_admin()
 
 function require_super_admin()
 {
-  global $session;
+  global $user_session;
   require_login();
 
-  $current_user = Admin::find_by_id($session->get_admin_id());
+  $current_user = User::find_by_id($user_session->get_admin_id());
   if (!$current_user || !$current_user->isSuperAdmin()) {
     $_SESSION['message'] = "You do not have permission to access that page.";
     redirect_to(url_for('/admin/index.php'));
@@ -43,9 +42,9 @@ function require_super_admin()
 
 function current_user()
 {
-  global $session;
-  if ($session->is_logged_in()) {
-    return Admin::find_by_id($session->get_admin_id());
+  global $user_session;
+  if ($user_session->is_logged_in()) {
+    return User::find_by_id($user_session->get_admin_id());
   } else {
     return false;
   }
@@ -54,9 +53,9 @@ function current_user()
 // New function to get current member
 function current_member()
 {
-  global $member_session;
-  if ($member_session->is_logged_in()) {
-    return Member::find_by_id($member_session->get_member_id());
+  global $user_session;
+  if ($user_session->is_logged_in()) {
+    return User::find_by_id($user_session->get_member_id());
   } else {
     return false;
   }

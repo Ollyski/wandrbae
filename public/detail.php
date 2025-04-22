@@ -23,8 +23,8 @@ $current_participants = RideParticipant::count_participants_for_ride($id);
 
 // Check if current user is signed up (if logged in)
 $is_signed_up = false;
-if ($member_session->is_logged_in()) {
-  $user_id = $member_session->get_member_id();
+if ($user_session->is_logged_in()) {
+  $user_id = $user_session->get_member_id();
   $is_signed_up = RideParticipant::is_user_signed_up($user_id, $id);
 }
 ?>
@@ -66,7 +66,7 @@ if ($member_session->is_logged_in()) {
         </dl>
 
         <div class="signup-area">
-          <?php if ($session->is_logged_in()) { ?>
+          <?php if ($user_session->is_logged_in()) { ?>
             <?php if ($is_signed_up) { ?>
               <p class="alert success">You are signed up for this ride!</p>
 

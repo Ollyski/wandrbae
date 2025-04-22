@@ -324,10 +324,6 @@ footer p {
   color: #ff7e67; 
 }
 
-.container tr a {
-  
-}
-
 .container tr:hover {
   background-color: #b97918;
   -webkit-box-shadow: 0 6px 6px -6px #b97918;

@@ -24,23 +24,21 @@ if ($ride === false) {
   redirect_to(url_for('/public/ride.php'));
 }
 
-// Get current member
-$member_id = $member_session->get_member_id();
-$member = Member::find_by_id($member_id);
+$user_id = $user_session->get_user_id();
+$user = User::find_by_id($user_id);
 
-if (!$member) {
+if (!$user) {
   $_SESSION['message'] = 'You must be logged in to sign up for rides.';
   redirect_to(url_for('/login.php'));
 }
 
-// Check if member is already signed up
-$already_signed_up = RideParticipant::is_user_signed_up($member_id, $ride_id);
+$already_signed_up = RideParticipant::is_user_signed_up($user_id, $ride_id);
 
 // Process form submission
 if (is_post_request()) {
   // Create participant
   $participant = new RideParticipant;
-  $participant->user_id = $member_id;
+  $participant->user_id = $user_id;
   $participant->ride_id = $ride_id;
   $participant->joined_at = date('Y-m-d H:i:s');
 

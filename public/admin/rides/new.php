@@ -1,4 +1,5 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php require_once('../../../private/initialize.php'); 
+require_admin_login();?>
 <?php $page_title = 'Create Ride'; ?>
 <?php
 $errors = [];

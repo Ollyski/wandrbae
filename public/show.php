@@ -1,7 +1,6 @@
 <?php
 require_once('../private/initialize.php');
 
-// Get the member ID from the URL
 $id = $_GET['id'] ?? '';
 
 // If no ID is provided, redirect to the home page
@@ -9,10 +8,8 @@ if(empty($id)) {
   redirect_to(url_for('/index.php'));
 }
 
-// Get the member information
-$member = Member::find_by_id($id);
+$member = User::find_by_id($id);
 
-// If member doesn't exist, redirect to home page
 if(!$member) {
   redirect_to(url_for('/index.php'));
 }

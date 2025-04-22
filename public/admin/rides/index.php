@@ -1,5 +1,5 @@
 <?php require_once('../../../private/initialize.php'); ?>
-<?php require_login(); ?>
+<?php require_admin_login(); ?>
 <?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="main">

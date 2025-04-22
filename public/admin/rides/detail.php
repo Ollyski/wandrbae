@@ -1,6 +1,6 @@
 <?php require_once('../../../private/initialize.php'); 
+require_admin_login();
 
-// Make sure we have an ID
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/admin/rides/index.php'));
 }

@@ -36,7 +36,6 @@ spl_autoload_register('my_autoload');
 $db = db_connect();
 ride::set_database($db);
 
-$session = new Session;
-$member_session = new MemberSession;
+$user_session = new UserSession;
 
 DatabaseObject::set_database($db);

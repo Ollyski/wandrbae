@@ -1,9 +1,8 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_login(); ?>
+<?php require_admin_login(); ?>
 <?php
 
-// Use the Admin class to get all users
-$users = Admin::find_all();
+$users = User::find_all();
 
 ?>
 <?php $page_title = 'User List'; ?>

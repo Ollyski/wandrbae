@@ -24,9 +24,9 @@ if (!isset($page_title)) {
           <p>Wander with us, bae</p>
         </div>
         <div class="header-buttons">
-          <?php if ($session->is_logged_in()) { 
+          <?php if ($user_session->is_logged_in()) { 
             $user_id = $_SESSION['admin_id'] ?? null;
-            $current_user = $user_id ? Admin::find_by_id($user_id) : null;
+            $current_user = $user_id ? User::find_by_id($user_id) : null;
             $user_name = $current_user ? $current_user->full_name() : 'Bae';
           ?>
             <span>Welcome, <?php echo h($user_name); ?>!</span>
@@ -45,7 +45,7 @@ if (!isset($page_title)) {
         <li><a href="<?php echo url_for('/members/routes/index.php'); ?>">Routes</a></li>
         <li><a href="<?php echo url_for('/ride.php'); ?>">Ride</a></li>
         <li><a href="<?php echo url_for('/about.php'); ?>">About</a></li>
-        <?php if (!$session->is_logged_in()) { ?>
+        <?php if (!$user_session->is_logged_in()) { ?>
           <li><a href="<?php echo url_for('/join.php'); ?>">Join Us</a></li>
         <?php } ?>
         <li><a href="<?php echo url_for('/contact.php'); ?>">Contact Us</a></li>

@@ -1,5 +1,6 @@
 <?php 
 require_once('../../private/initialize.php'); 
+require_member_login();
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $id = intval($id);

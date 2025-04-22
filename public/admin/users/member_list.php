@@ -1,8 +1,6 @@
-<?php require_once('../../private/initialize.php'); ?>
-<?php 
-  // Get all users from database
-  $user_set = find_all_users();
-?>
+<?php require_once('../../private/initialize.php'); 
+require_admin_login();?>
+<?php $user_set = find_all_users(); ?>
 
 <?php include(SHARED_PATH . '/member_header.php'); ?>
 

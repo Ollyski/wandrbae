@@ -1,6 +1,6 @@
 <?php
 
-class Member extends DatabaseObject
+class User extends DatabaseObject
 {
   protected static $table_name = 'user';
   protected static $db_columns = ['user_id', 'username', 'email', 'hashed_password', 'first_name', 'last_name', 'user_role_id', 'is_member'];
@@ -32,6 +32,30 @@ class Member extends DatabaseObject
   public function full_name()
   {
     return $this->first_name . " " . $this->last_name;
+  }
+
+  public function is_admin()
+  {
+    return ($this->user_role_id == 2 || $this->user_role_id == 3);
+  }
+
+  public function is_super_admin()
+  {
+    return ($this->user_role_id == 3);
+  }
+
+  public function get_role_name()
+  {
+    switch ($this->user_role_id) {
+      case 1:
+        return "Member";
+      case 2:
+        return "Admin";
+      case 3:
+        return "Superadmin";
+      default:
+        return "Unknown";
+    }
   }
 
   protected function set_hashed_password()
@@ -134,6 +158,14 @@ class Member extends DatabaseObject
     } else {
       return false;
     }
+  }
+  
+  public static function find_all_admins()
+  {
+    $sql = "SELECT * FROM " . static::$table_name . " ";
+    $sql .= "WHERE user_role_id IN (2, 3) ";
+    $sql .= "ORDER BY last_name ASC, first_name ASC";
+    return static::find_by_sql($sql);
   }
 
   protected function create()

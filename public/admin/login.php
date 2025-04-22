@@ -1,9 +1,10 @@
 <?php
 require_once('../../private/initialize.php');
 echo "Current intended destination: " . ($_SESSION['intended_destination'] ?? 'Not set');
-if ($session->is_logged_in()) {
+
+if ($user_session->is_admin()) {
   $redirect_to = $_SESSION['intended_destination'] ?? url_for('/admin/index.php');
-  unset($_SESSION['intended_destination']); // Clear it after use
+  unset($_SESSION['intended_destination']);
   redirect_to($redirect_to);
 }
 
@@ -26,19 +27,16 @@ if (is_post_request()) {
 
 
   if (empty($errors)) {
-    $admin = Admin::find_by_username($username);
-
-    if ($admin != false && $admin->verify_password($password)) {
-
-      $redirect_to = $session->login($admin);
+    if ($user != false && $user->verify_password($password) && $user->is_admin()) {
+      $redirect_to = $user_session->login($user);
       redirect_to($redirect_to);
+
       } else {
       
       if (isset($_SESSION['intended_destination']) && !empty($_SESSION['intended_destination'])) {
         $redirect_to = $_SESSION['intended_destination'];
-        unset($_SESSION['intended_destination']); // Clear it after use
+        unset($_SESSION['intended_destination']);
       } else {
-      // Login failed
       $errors[] = "Log in was unsuccessful.";
       }
     }

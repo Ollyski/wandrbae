@@ -19,9 +19,9 @@
 
   <navigation>
     <ul>
-      <?php if ($session->is_logged_in()) {
+      <?php if ($user_session->is_logged_in()) {
         $user_id = $_SESSION['admin_id'] ?? null;
-        $current_user = $user_id ? Admin::find_by_id($user_id) : null;
+        $current_user = $user_id ? User::find_by_id($user_id) : null;
         $user_name = $current_user ? $current_user->full_name() : 'Bae';
       ?>
         <li><a href="<?php echo url_for('/members/index.php'); ?>">Menu</a></li>

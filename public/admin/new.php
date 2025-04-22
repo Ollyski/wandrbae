@@ -1,17 +1,17 @@
 <?php
 
 require_once('../../private/initialize.php');
-
+require_admin_login();
 
 if(is_post_request()) {
 
   
   $args = $_POST['admin'];
-  $admin = new Admin($args);
-  $result = $admin->save();
+  $user = new User($args);
+  $result = $user->save();
 
   if($result === true) {
-    $new_id = $admin->user_id;
+    $new_id = $user->user_id;
     $_SESSION['message'] = 'The admin was created successfully.';
     redirect_to(url_for('/admin/show.php?id=' . $new_id));
   } else {
@@ -19,7 +19,7 @@ if(is_post_request()) {
 
 } else {
 
-  $admin = new Admin;
+  $user = new User;
 }
 
 ?>
@@ -34,7 +34,7 @@ if(is_post_request()) {
   <div class="admin new">
     <h1>Create Admin</h1>
 
-    <?php echo display_errors($admin->errors); ?>
+    <?php echo display_errors($user->errors); ?>
 
     <form action="<?php echo url_for('/admin/new.php'); ?>" method="post">
 

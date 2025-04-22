@@ -67,10 +67,10 @@
 
           <div class="ride-footer">
             <a href="detail.php?id=<?php echo $ride->ride_id; ?>" class="btn">View Details</a>
-            <?php if ($member_session->is_logged_in()) { ?>
+            <?php if ($user_session->is_logged_in()) { ?>
               <a href="<?php echo url_for('/members/rides/signup.php?ride_id=' . $ride->ride_id); ?>" class="btn">Sign Up</a>
             <?php } else { ?>
-              <a class= "btn" href="<?php echo url_for('/members/rides/signup.php?ride_id=' . $ride->ride_id); ?>">Log in to Sign Up</a>
+              <a class="btn" href="<?php echo url_for('/members/rides/signup.php?ride_id=' . $ride->ride_id); ?>">Log in to Sign Up</a>
             <?php } ?>
           </div>
         </div>

@@ -4,6 +4,7 @@ if(!isset($ride)) {
   require_once('../../../private/initialize.php');
   $ride = new stdClass();
 }
+require_admin_login();
 ?>
 
 <dl>
