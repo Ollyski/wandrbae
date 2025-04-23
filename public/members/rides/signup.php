@@ -47,7 +47,7 @@ if (is_post_request()) {
 
   if ($result) {
     $_SESSION['message'] = 'You have successfully signed up for this ride!';
-    redirect_to(url_for('/public/ride.php'));
+    redirect_to(url_for('/ride.php'));
   } else {
     // If there was an error
     $_SESSION['message'] = 'Failed to sign up for ride. Please try again.';
@@ -82,7 +82,7 @@ if (is_post_request()) {
           <div>
             <p>You are already signed up for this ride!</p>
 
-            <form action="<?php echo url_for('/members/rides/cancel_signup.php'); ?>" method="post">
+            <form action="<?php echo url_for('/members/rides/cancel.php'); ?>" method="post">
               <input type="hidden" name="ride_id" value="<?php echo h($ride_id); ?>">
               <button type="submit" onclick="return confirm('Are you sure you want to cancel your signup?');">Cancel My Signup</button>
             </form>

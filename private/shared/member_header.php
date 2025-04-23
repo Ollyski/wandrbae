@@ -21,8 +21,8 @@
         </div>
         <div class="header-buttons">
           <?php if ($user_session->is_logged_in()) {
-            $user_id = $_SESSION['admin_id'] ?? null;
-            $current_user = $user_id ? Admin::find_by_id($user_id) : null;
+            $user_id = $_SESSION['user_id'] ?? null;
+            $current_user = $user_id ? User::find_by_id($user_id) : null;
             $user_name = $current_user ? $current_user->full_name() : 'Bae';
           ?>
             <a href="<?php echo url_for('/admin/logout.php'); ?>" class="btn">Logout <?php echo h($user_name); ?></a>

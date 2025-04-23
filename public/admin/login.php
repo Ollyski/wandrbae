@@ -27,6 +27,7 @@ if (is_post_request()) {
 
 
   if (empty($errors)) {
+    $user = User::find_by_username($username);
     if ($user != false && $user->verify_password($password) && $user->is_admin()) {
       $redirect_to = $user_session->login($user);
       redirect_to($redirect_to);

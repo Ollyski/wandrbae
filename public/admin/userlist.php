@@ -42,7 +42,7 @@ $users = User::find_all();
                 <td><?php echo h($user->last_name ?? ''); ?></td>
                 <td><?php echo h($user->email ?? ''); ?></td>
                 <td><?php echo h($user->username ?? ''); ?></td>
-                <td><?php echo h($user->getRoleName() ?? ''); ?></td>
+                <td><?php echo h($user->get_role_name() ?? ''); ?></td>
                 <td>
                   <a class="table-action" href="<?php echo url_for('/admin/show_user.php?id=' . h(u($user->user_id ?? ''))); ?>">View</a>
                   <a class="table-action" href="<?php echo url_for('/admin/edit_user.php?id=' . h(u($user->user_id ?? ''))); ?>">Edit</a>

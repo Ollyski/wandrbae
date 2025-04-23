@@ -24,7 +24,7 @@ $current_participants = RideParticipant::count_participants_for_ride($id);
 // Check if current user is signed up (if logged in)
 $is_signed_up = false;
 if ($user_session->is_logged_in()) {
-  $user_id = $user_session->get_member_id();
+  $user_id = $user_session->get_user_id();
   $is_signed_up = RideParticipant::is_user_signed_up($user_id, $id);
 }
 ?>

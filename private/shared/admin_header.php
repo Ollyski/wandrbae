@@ -7,27 +7,40 @@
                     echo ' - ' . h($page_title);
                   } ?></title>
   <meta charset="utf-8">
-  <link rel="stylesheet" media="all" href="../stylesheets/members.css" />
+  <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/members.css'); ?>" />
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
 </head>
 
 <body>
-  <header>
-    <h1>Welcome Bae!</h1>
-    <p><a href="<?php echo url_for('/index.php'); ?>">Home</a></p>
-  </header>
-
-  <navigation>
+  <header id="page-header" role="banner" aria-label="document-header">
+      <div class="header-content">
+        <div class="header-text">
+          <h1>Welcome Bae!</h1>
+          <img src="<?php echo url_for('/images/test.png'); ?>" id="logo" alt="WandrBae logo" width="75" height="75">
+          <p>Good to see you again!</p>
+        </div>
+        <div class="header-buttons">
+          <?php if ($user_session->is_logged_in()) {
+            $user_id = $_SESSION['user_id'] ?? null;
+            $current_user = $user_id ? User::find_by_id($user_id) : null;
+            $user_name = $current_user ? $current_user->full_name() : 'Bae';
+          ?>
+            <a href="<?php echo url_for('/admin/logout.php'); ?>" class="btn">Logout <?php echo h($user_name); ?></a>
+          <?php } ?>
+      </div>
+    </header>
+  <nav>
     <ul>
-      <?php if ($user_session->is_logged_in()) {
-        $user_id = $_SESSION['admin_id'] ?? null;
-        $current_user = $user_id ? User::find_by_id($user_id) : null;
-        $user_name = $current_user ? $current_user->full_name() : 'Bae';
-      ?>
-        <li><a href="<?php echo url_for('/members/index.php'); ?>">Menu</a></li>
-        <li><a href="<?php echo url_for('/members/logout.php'); ?>">Logout <?php echo h($user_name); ?></a></li>
-      <?php } else { ?>
-        <li><a href="<?php echo url_for('/members/login.php'); ?>">Login</a></li>
-      <?php } ?>
-    </ul>
-  </navigation>
+        <li><a href="<?php echo url_for('/index.php'); ?>">Home</a></li>
+        <li><a href="<?php echo url_for('/members/routes/index.php'); ?>">Routes</a></li>
+        <li><a href="<?php echo url_for('/ride.php'); ?>">Ride</a></li>
+        <li><a href="<?php echo url_for('/about.php'); ?>">About</a></li>
+        <?php if (!$user_session->is_logged_in()) { ?>
+          <li><a href="<?php echo url_for('/join.php'); ?>">Join Us</a></li>
+        <?php } ?>
+        <li><a href="<?php echo url_for('/contact.php'); ?>">Contact Us</a></li>
+        <li><a href="<?php echo url_for('/admin.php'); ?>">Admin</a></li>
+      </ul>
+    
+    </nav>
+ 
