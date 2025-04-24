@@ -1,6 +1,6 @@
 <?php
 require_once('../private/initialize.php');
-include(SHARED_PATH . '/public_header.php');
+include_header();
 ?>
 
 <main role="main">

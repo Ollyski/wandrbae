@@ -1,12 +1,12 @@
 <?php
 require_once('../../private/initialize.php');
-echo "Current intended destination: " . ($_SESSION['intended_destination'] ?? 'Not set');
-
 if ($user_session->is_admin()) {
   $redirect_to = $_SESSION['intended_destination'] ?? url_for('/admin/index.php');
   unset($_SESSION['intended_destination']);
   redirect_to($redirect_to);
 }
+include_header();
+
 
 $errors = [];
 $username = '';
@@ -47,7 +47,6 @@ if (is_post_request()) {
 ?>
 
 <?php $page_title = 'Log in'; ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 <div id="content">
   <main role="main">
     <section>

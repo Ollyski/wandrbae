@@ -1,6 +1,7 @@
 <?php
 require_once('../../private/initialize.php');
 require_admin_login();
+include_header();
 
 // Get ride ID and user ID from URL parameters
 $ride_id = $_GET['ride_id'] ?? false;

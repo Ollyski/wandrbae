@@ -1,5 +1,6 @@
 <?php require_once('../../../private/initialize.php');
 require_member_login();
+include_header();
 
 $ride_id = $_POST['ride_id'] ?? $_GET['ride_id'] ?? false;
 
@@ -19,7 +20,6 @@ if (!$participant) {
 if (!is_post_request()) {
   $ride = Ride::find_by_id($ride_id);
   $page_title = 'Cancel Signup';
-  include(SHARED_PATH . '/member_header.php');
   ?>
   <div id="content">
     <main role="main">

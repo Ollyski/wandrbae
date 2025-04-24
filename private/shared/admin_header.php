@@ -39,8 +39,14 @@
           <li><a href="<?php echo url_for('/join.php'); ?>">Join Us</a></li>
         <?php } ?>
         <li><a href="<?php echo url_for('/contact.php'); ?>">Contact Us</a></li>
-        <li><a href="<?php echo url_for('/admin.php'); ?>">Admin</a></li>
+        <li class="dropdown">
+          <a href="<?php echo url_for('/admin/index.php'); ?>">Admin</a>
+        <div class="dropdown-content">
+          <a href="<?php echo url_for('/admin/users/index.php'); ?>">Manage Users</a>
+          <a href="<?php echo url_for('/admin/routes/index.php'); ?>">Manage Routes</a>
+          <a href="<?php echo url_for('/admin/settings.php'); ?>">Settings</a>
+        </div>
+        </li>
       </ul>
-    
     </nav>
  

@@ -1,5 +1,6 @@
 <?php require_once('../../../private/initialize.php'); 
-require_admin_login();?>
+require_admin_login();
+include_header();?>
 <?php $page_title = 'Create Ride'; ?>
 <?php
 $errors = [];
@@ -41,7 +42,6 @@ if (is_post_request()) {
 }
 ?>
 
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="content">
   <a class="back-link" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>

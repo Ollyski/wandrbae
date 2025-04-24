@@ -1,5 +1,6 @@
 <?php
 require_once('../private/initialize.php');
+include_header();
 
 $id = $_GET['id'] ?? '';
 
@@ -17,7 +18,6 @@ if(!$member) {
 ?>
 
 <?php $page_title = 'Welcome to Wandrbae!'; ?>
-<?php include(SHARED_PATH . '/public_header.php'); ?>
 
 <div id="content">
   <div class="member show">

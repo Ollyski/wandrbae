@@ -1,7 +1,7 @@
 <?php require_once('../private/initialize.php');
-require_member_login(); ?>
+require_member_login();
+include_header(); ?>
 <?php $page_title = 'Rides'; ?>
-<?php include(SHARED_PATH . '/public_header.php'); ?>
 
 
 <?php

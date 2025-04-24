@@ -1,12 +1,12 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_admin_login(); ?>
+<?php require_admin_login(); 
+include_header(); ?>
 <?php
 
 $users = User::find_all();
 
 ?>
 <?php $page_title = 'User List'; ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="main">
   <div class="userlist">

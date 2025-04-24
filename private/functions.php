@@ -8,7 +8,6 @@
     return WWW_ROOT . $script_path;
   }
 
-
   function u($string="") {
     if(is_null($string)) {
       $string = "";
@@ -65,5 +64,21 @@
       redirect_to(url_for('/admin/login.php'));
     }
   }
-  
+
+  function include_header() {
+    global $user_session;
+    
+    if ($user_session->is_logged_in()) {
+      if ($user_session->is_super_admin()) {
+        include(SHARED_PATH . '/superadmin_header.php');
+      } else if ($user_session->is_admin()) {
+        include(SHARED_PATH . '/admin_header.php');
+      } else {
+        include(SHARED_PATH . '/member_header.php');
+      }
+    } else {
+      include(SHARED_PATH . '/public_header.php');
+    }
+  }
+
 ?>

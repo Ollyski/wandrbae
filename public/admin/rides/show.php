@@ -1,5 +1,6 @@
 <?php require_once('../../../private/initialize.php'); 
-require_admin_login();?>
+require_admin_login();
+include_header();?>
 <?php
 if (isset($_SESSION['message'])) {
   echo "<div class='message'>" . $_SESSION['message'] . "</div>";
@@ -22,7 +23,6 @@ $page_title = 'Show Ride: ' . h($ride->ride_name());
 
 
 <?php $page_title = 'Show Ride: ' . h($ride->ride_name()); ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="content">
 

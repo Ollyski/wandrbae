@@ -1,6 +1,6 @@
 <?php
 require_once('../../private/initialize.php');
-
+include_header();
 // Ensure user is logged in
 if(!$user_session->is_logged_in()) {
   $_SESSION['intended_destination'] = $_SERVER['REQUEST_URI'];
@@ -33,7 +33,7 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'My Account'; ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
+
 
 <div id="content">
   <div class="member account">

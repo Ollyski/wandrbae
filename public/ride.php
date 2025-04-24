@@ -1,6 +1,7 @@
-<?php require_once('../private/initialize.php'); ?>
+<?php require_once('../private/initialize.php');
+include_header(); ?>
 <?php $page_title = 'Rides'; ?>
-<?php include(SHARED_PATH . '/public_header.php'); ?>
+
 <div id="main">
   <div id="page">
     <div class="intro">

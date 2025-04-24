@@ -1,5 +1,6 @@
 <?php require_once('../../../private/initialize.php'); 
 require_admin_login();
+include_header();
 
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/admin/rides/index.php'));
@@ -14,8 +15,6 @@ if($ride == false) {
 
 $page_title = 'View Ride: ' . h($ride->ride_name);
 ?>
-
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="main">
   <div id="page">

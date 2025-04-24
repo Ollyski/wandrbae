@@ -1,8 +1,7 @@
 <?php require_once('../../private/initialize.php'); 
-require_admin_login();?>
+require_admin_login();
+include_header();?>
 <?php $user_set = find_all_users(); ?>
-
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <!doctype html>
 <html lang="en">

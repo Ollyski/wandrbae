@@ -1,6 +1,6 @@
 <?php
 require_once('../private/initialize.php');
-
+include_header();
 if(is_post_request()) {
   
   $args = $_POST['user'];
@@ -36,7 +36,6 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Join Wandrbae'; ?>
-<?php include(SHARED_PATH . '/public_header.php'); ?>
 
 <div id="content">
 

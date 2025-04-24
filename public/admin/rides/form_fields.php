@@ -5,6 +5,7 @@ if(!isset($ride)) {
   $ride = new stdClass();
 }
 require_admin_login();
+include_header();
 ?>
 
 <dl>
@@ -63,7 +64,7 @@ require_admin_login();
 <dl>
   <dt>Start Time</dt>
   <dd>
-    <input type="datetime-local" name="start_time" value="<?php echo h(isset($ride->start_time) ? date('Y-m-d\TH:i', strtotime($ride->start_time)) : ''); ?>" required />
+    <input type="datetime-local" name="start_time" value="<?php echo h($ride->start_time ? date('Y-m-d\TH:i', strtotime($ride->start_time)) : ''); ?>" required />
   </dd>
 </dl>
 
@@ -97,7 +98,7 @@ require_admin_login();
   <dt>State</dt>
   <dd>
     <select name="state" required>
-      <option value="">Select a state</option>
+      <option value="value" <?php if(($variable->property ?? '') == 'value') { echo 'selected'; } ?>>>Select a state</option>
       <option value="AL" <?php if(($ride->state ?? '') == 'AL') { echo 'selected'; } ?>>Alabama</option>
       <option value="AK" <?php if(($ride->state ?? '') == 'AK') { echo 'selected'; } ?>>Alaska</option>
       <option value="AZ" <?php if(($ride->state ?? '') == 'AZ') { echo 'selected'; } ?>>Arizona</option>

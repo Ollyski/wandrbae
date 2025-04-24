@@ -1,12 +1,12 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_admin_login(); ?>
+<?php require_admin_login(); 
+include_header(); ?>
 <?php
 
 $user = User::find_all();
 
 ?>
 <?php $page_title = 'Admins'; ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="main">
   <div>

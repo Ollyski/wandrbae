@@ -1,6 +1,7 @@
 <?php
 require_once('../../private/initialize.php');
 require_admin_login();
+include_header();
 
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/admin/index.php'));
@@ -21,7 +22,6 @@ if($user == false) {
 ?>
 
 <?php $page_title = 'Delete Admin'; ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="content">
 

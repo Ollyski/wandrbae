@@ -1,5 +1,6 @@
 <?php require_once('../../private/initialize.php'); 
-require_admin_login();?>
+require_admin_login();
+include_header(); ?>
 
 <?php
 
@@ -10,7 +11,6 @@ $user = User::find_by_id($id);
 ?>
 
 <?php $page_title = 'Show Admin: ' . h($user->full_name()); ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="content">
 

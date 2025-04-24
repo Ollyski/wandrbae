@@ -2,6 +2,7 @@
 require_once('../../../private/initialize.php');
 echo "Current URI: " . $_SERVER['REQUEST_URI'];
 require_member_login();
+include_header();
 ?>
 
 <?php

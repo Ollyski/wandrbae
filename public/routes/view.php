@@ -1,6 +1,7 @@
 <?php 
 require_once('../../private/initialize.php'); 
 require_member_login();
+include_header();
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $id = intval($id);
@@ -9,8 +10,6 @@ $route = find_route_by_id($id);
 $waypoints = find_waypoints_by_route_id($id);
 
 $show_map = true;
-
-include(SHARED_PATH . '/public_header.php'); 
 ?>
 <main>
   <div class="container">
@@ -36,16 +35,21 @@ include(SHARED_PATH . '/public_header.php');
       </div>
     </section>
   </div>
-<main>
-<!-- Pass route waypoints to JavaScript -->
+</main>
+
+<!-- Pass route waypoints to JavaScript before loading the external JS file -->
 <script>
-  // Convert PHP arrays to JavaScript arrays for the map
-  const routeWaypoints = <?php echo json_encode($waypoints); ?>;
-  const routeName = "<?php echo h($route['route_name']); ?>";
+// Safely encode waypoints data
+window.routeWaypoints = <?php 
+  // Ensure proper JSON encoding
+  echo json_encode($waypoints, JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE); 
+?>;
+
+// Debug - print JSON to console
+console.log('Route waypoints:', window.routeWaypoints);
 </script>
-<script>
-  console.log("Current file path: <?php echo __FILE__; ?>");
-  console.log("Route map should be at: <?php echo url_for('/javascripts/route_map.js'); ?>");
-</script>
+
+<!-- Load the external JavaScript file with the correct path -->
+<script src="../../public/js/route_map.js"></script>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

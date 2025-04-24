@@ -1,9 +1,9 @@
 <?php
 require_once('../../private/initialize.php');
 require_admin_login();
+include_header();
 
 $page_title = 'Ride Participants';
-include(SHARED_PATH . '/admin_header.php');
 
 // Get ride ID from URL parameter
 $ride_id = $_GET['id'] ?? false;

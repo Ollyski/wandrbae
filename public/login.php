@@ -1,6 +1,6 @@
 <?php
 require_once('../private/initialize.php');
-
+include_header();
 $errors = [];
 $username = '';
 $password = '';
@@ -36,7 +36,7 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Log in'; ?>
-<?php include(SHARED_PATH . '/public_header.php'); ?>
+
 
 <div id="main">
   <section>

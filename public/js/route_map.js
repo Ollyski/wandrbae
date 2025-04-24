@@ -1,178 +1,216 @@
-'use strict';
-
-// Global variables
-let map;
-let routePath;
-
-function loadGoogleMapsAPI() {
-  if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
-    console.log('Loading Google Maps API dynamically...');
-    const script = document.createElement('script');
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDDVvFVJsg2uT4iKCrLxMnrQTEA_l--7n4&callback=initMap";
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  } else {
-    console.log('Google Maps API already loaded');
-    initMap(); // If it's already loaded, just fire the map right away
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  if (document.getElementById('map')) {
-    console.log('Map element found, calling loadGoogleMapsAPI');
-    loadGoogleMapsAPI();
-  } else {
-    console.log('Map element not found, skipping map initialization');
-  }
-});
-
-function initMap() {
-  console.log('initMap called');
+// Check if script has already been loaded to prevent duplicate execution
+if (typeof window._routeMapLoaded === 'undefined') {
+  window._routeMapLoaded = true;
+  console.log('route_map.js loaded at', new Date().toISOString());
   
-  // Default center (will be overridden if waypoints exist)
-  let mapCenter = { lat: 35.5951, lng: -82.5515 }; // Asheville default
-  let zoomLevel = 12;
-
-  if (typeof routeWaypoints === 'undefined') {
-    console.log('routeWaypoints not defined, initializing empty array');
-    window.routeWaypoints = [];
-  }
-  
-  // Debug: Check for routeWaypoints
-  console.log('routeWaypoints available:', typeof routeWaypoints !== 'undefined');
-  
-  // Check if we have route waypoints
-  if (typeof routeWaypoints !== 'undefined' && routeWaypoints.length > 0) {
-    console.log('Using route waypoints for map center');
+  // Begin IIFE to isolate variables
+  (function() {
+    'use strict';
     
-    // Handle both property naming conventions
-    const firstPoint = routeWaypoints[0];
+    // Private module variables
+    let routeMap;
+    let routePath;
     
-    // Debug first waypoint
-    console.log('First waypoint:', firstPoint);
+    // Ensure routeWaypoints is defined globally
+    window.routeWaypoints = window.routeWaypoints || [];
     
-    // Get lat/lng from the first waypoint
-    const lat = parseFloat(firstPoint.latitude || firstPoint.lat || 0);
-    const lng = parseFloat(firstPoint.longitude || firstPoint.lng || 0);
-    
-    console.log('First waypoint coordinates:', lat, lng);
-    
-    if (lat && lng) {
-      mapCenter = { lat, lng };
-      zoomLevel = 14; // Closer zoom for specific route
-    }
-  }
-
-  // Set map options
-  const mapOptions = {
-    center: mapCenter,
-    zoom: zoomLevel,
-    mapTypeId: "terrain", // Shows elevation + landscape features
-    mapTypeControl: true
-  };
-
-  console.log('Creating map with center:', mapCenter);
-
-  // Create the map instance
-  map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  // If we have waypoints, draw the route
-  if (typeof routeWaypoints !== 'undefined' && routeWaypoints.length > 0) {
-    console.log('Drawing route with', routeWaypoints.length, 'waypoints');
-    drawRouteOnMap();
-  } else {
-    console.log('No waypoints, just adding default marker');
-    // Just place a marker at the center
-    const marker = new google.maps.Marker({
-      position: mapCenter,
-      map: map,
-      title: "Wandrbae Starting Point",
-    });
-  }
-
-  console.log("Map loaded!");
-}
-
-function drawRouteOnMap() {
-  try {
-    // Convert waypoints to Google Maps LatLng objects
-    const path = routeWaypoints.map(point => {
-      // Try to extract latitude/longitude however they're named
-      const lat = parseFloat(point.latitude || point.lat || 0); 
-      const lng = parseFloat(point.longitude || point.lng || 0);
-      
-      console.log('Processing waypoint:', lat, lng);
-      
-      return { lat, lng };
-    }).filter(coord => coord.lat !== 0 && coord.lng !== 0); // Filter out invalid coordinates
-    
-    console.log('Processed path:', path);
-    
-    if (path.length === 0) {
-      console.log('No valid coordinates found');
-      return;
-    }
-    
-    // Create polyline for the route
-    routePath = new google.maps.Polyline({
-      path: path,
-      geodesic: true,
-      strokeColor: "#FF4500",
-      strokeOpacity: 1.0,
-      strokeWeight: 4
-    });
-    
-    // Add to map
-    routePath.setMap(map);
-    
-    // Add start marker
-    if (path.length > 0) {
-      new google.maps.Marker({
-        position: path[0],
-        map: map,
-        title: "Start",
-        icon: {
-          url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-        }
-      });
-      
-      // Add end marker if different from start
-      if (path.length > 1) {
-        new google.maps.Marker({
-          position: path[path.length - 1],
-          map: map,
-          title: "End",
-          icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-          }
-        });
+    function loadGoogleMapsAPI() {
+      if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+        console.log('Loading Google Maps API dynamically...');
+        const script = document.createElement('script');
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDDVvFVJsg2uT4iKCrLxMnrQTEA_l--7n4&callback=initMap&loading=async";
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+      } else {
+        console.log('Google Maps API already loaded');
+        initMap(); 
       }
     }
     
-    // Fit map to bounds of the route
-    const bounds = new google.maps.LatLngBounds();
-    path.forEach(point => bounds.extend(point));
-    map.fitBounds(bounds);
+    // Make initMap globally available for Google Maps callback
+    window.initMap = function() {
+      console.log('initMap called');
+      
+      // Default center (will be overridden if waypoints exist)
+      let mapCenter = { lat: 35.5951, lng: -82.5515 }; // Asheville default
+      let zoomLevel = 12;
     
-    console.log('Route drawing complete');
-  } catch (error) {
-    console.error('Error drawing route:', error);
-  }
-}
-
-// Add event listener to initialize map when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  // Check if map element exists before trying to initialize
-  if (document.getElementById('map')) {
-    console.log('Map element found, initializing...');
-    // If Google Maps API is already loaded, initialize map
-    if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
-      initMap();
-    } else {
-      console.log('Google Maps not loaded yet');
+      // Use window.routeWaypoints to ensure it's globally accessible
+      if (!window.routeWaypoints || !Array.isArray(window.routeWaypoints)) {
+        console.log('routeWaypoints not defined or not an array, initializing empty array');
+        window.routeWaypoints = [];
+      }
+      
+      // Debug: Check for routeWaypoints
+      console.log('routeWaypoints available:', window.routeWaypoints.length > 0);
+      
+      // Check if we have route waypoints
+      if (window.routeWaypoints.length > 0) {
+        console.log('Using route waypoints for map center');
+        
+        // Handle both property naming conventions
+        const firstPoint = window.routeWaypoints[0];
+        
+        // Debug first waypoint
+        console.log('First waypoint:', firstPoint);
+        
+        // Get lat/lng from the first waypoint
+        const lat = parseFloat(firstPoint.latitude || firstPoint.lat || 0);
+        const lng = parseFloat(firstPoint.longitude || firstPoint.lng || 0);
+        
+        console.log('First waypoint coordinates:', lat, lng);
+        
+        if (lat && lng) {
+          mapCenter = { lat, lng };
+          zoomLevel = 14; // Closer zoom for specific route
+        }
+      }
+    
+      // Set map options
+      const mapOptions = {
+        center: mapCenter,
+        zoom: zoomLevel,
+        mapTypeId: "terrain", // Shows elevation + landscape features
+        mapTypeControl: true
+      };
+    
+      console.log('Creating map with center:', mapCenter);
+    
+      // Create map instance
+      routeMap = new google.maps.Map(document.getElementById("map"), mapOptions);
+    
+      // If we have waypoints, draw the route
+      if (window.routeWaypoints.length > 0) {
+        console.log('Drawing route with', window.routeWaypoints.length, 'waypoints');
+        drawRouteOnMap();
+      } else {
+        console.log('No waypoints, just adding default marker');
+        // Place a marker at the center using AdvancedMarkerElement
+        if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
+          const marker = new google.maps.marker.AdvancedMarkerElement({
+            position: mapCenter,
+            map: routeMap,
+            title: "Wandrbae Starting Point"
+          });
+        } else {
+          // Fallback to regular marker if AdvancedMarkerElement is not available
+          const marker = new google.maps.Marker({
+            position: mapCenter,
+            map: routeMap,
+            title: "Wandrbae Starting Point"
+          });
+        }
+      }
+    
+      console.log("Map loaded!");
+    };
+    
+    function drawRouteOnMap() {
+      try {
+        // Convert waypoints to Google Maps LatLng objects
+        const path = window.routeWaypoints.map(point => {
+          // Try to extract latitude/longitude however they're named
+          const lat = parseFloat(point.latitude || point.lat || 0); 
+          const lng = parseFloat(point.longitude || point.lng || 0);
+          
+          console.log('Processing waypoint:', lat, lng);
+          
+          return { lat, lng };
+        }).filter(coord => coord.lat !== 0 && coord.lng !== 0); // Filter out invalid coordinates
+        
+        console.log('Processed path:', path);
+        
+        if (path.length === 0) {
+          console.log('No valid coordinates found');
+          return;
+        }
+        
+        // Create polyline for the route
+        routePath = new google.maps.Polyline({
+          path: path,
+          geodesic: true,
+          strokeColor: "#FF4500",
+          strokeOpacity: 1.0,
+          strokeWeight: 4
+        });
+        
+        // Add to map
+        routePath.setMap(routeMap);
+        
+        // Helper function to create markers based on API availability
+        function createMarker(position, title, iconUrl) {
+          if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
+            // Use AdvancedMarkerElement if available
+            return new google.maps.marker.AdvancedMarkerElement({
+              position: position,
+              map: routeMap,
+              title: title,
+              // Advanced markers handle icons differently
+              content: document.createElement("div")  // You may need to style this element
+            });
+          } else {
+            // Fallback to regular marker
+            return new google.maps.Marker({
+              position: position,
+              map: routeMap,
+              title: title,
+              icon: iconUrl ? {
+                url: iconUrl
+              } : undefined
+            });
+          }
+        }
+        
+        // Add start marker
+        if (path.length > 0) {
+          createMarker(
+            path[0], 
+            "Start", 
+            "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          );
+          
+          // Add end marker if different from start
+          if (path.length > 1) {
+            createMarker(
+              path[path.length - 1],
+              "End",
+              "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            );
+          }
+        }
+        
+        // Fit map to bounds of the route
+        const bounds = new google.maps.LatLngBounds();
+        path.forEach(point => bounds.extend(point));
+        routeMap.fitBounds(bounds);
+        
+        console.log('Route drawing complete');
+      } catch (error) {
+        console.error('Error drawing route:', error);
+      }
     }
-  } else {
-    console.log('Map element not found');
-  }
-});
+    
+    // Single event listener for DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        if (document.getElementById('map')) {
+          console.log('Map element found, calling loadGoogleMapsAPI');
+          loadGoogleMapsAPI();
+        } else {
+          console.log('Map element not found, skipping map initialization');
+        }
+      });
+    } else {
+      // DOM already loaded
+      if (document.getElementById('map')) {
+        console.log('Map element found (DOM already loaded), calling loadGoogleMapsAPI');
+        loadGoogleMapsAPI();
+      } else {
+        console.log('Map element not found, skipping map initialization');
+      }
+    }
+  })();
+} else {
+  console.log('route_map.js already loaded, skipping execution');
+}

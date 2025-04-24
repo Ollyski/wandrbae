@@ -1,4 +1,6 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php require_once('../../../private/initialize.php'); 
+require_member_login();
+include_header(); ?>
 
 <?php
 // Get all routes
@@ -12,7 +14,6 @@ $sql = "SELECT r.route_id, r.route_name, r.distance_km,
 $result = mysqli_query($db, $sql);
 ?>
 
-<?php include(SHARED_PATH . '/public_header.php'); ?>
 <main role="main">
   <div class="container">
     <section>

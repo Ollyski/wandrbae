@@ -2,6 +2,7 @@
 
 require_once('../../private/initialize.php');
 require_admin_login();
+include_header();
 
 if(is_post_request()) {
 
@@ -25,7 +26,6 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Create Admin'; ?>
-<?php include(SHARED_PATH . '/member_header.php'); ?>
 
 <div id="content">
 

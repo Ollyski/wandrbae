@@ -1,5 +1,6 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_login(); ?>
+<?php require_login(); 
+include_header();?>
 <?php
 
 $user = User::find_all();
