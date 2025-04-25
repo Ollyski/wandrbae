@@ -1,4 +1,3 @@
-// Check if script has already been loaded to prevent duplicate execution
 if (typeof window._routeMapLoaded === 'undefined') {
   window._routeMapLoaded = true;
   console.log('route_map.js loaded at', new Date().toISOString());
@@ -14,11 +13,11 @@ if (typeof window._routeMapLoaded === 'undefined') {
     // Ensure routeWaypoints is defined globally
     window.routeWaypoints = window.routeWaypoints || [];
     
-    function loadGoogleMapsAPI() {
+    async function loadGoogleMapsAPI() {
       if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
         console.log('Loading Google Maps API dynamically...');
         const script = document.createElement('script');
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDDVvFVJsg2uT4iKCrLxMnrQTEA_l--7n4&callback=initMap&loading=async";
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDDVvFVJsg2uT4iKCrLxMnrQTEA_l--7n4&callback=initMap&loading=async&libraries=marker";
         script.async = true;
         script.defer = true;
         document.head.appendChild(script);
@@ -29,8 +28,11 @@ if (typeof window._routeMapLoaded === 'undefined') {
     }
     
     // Make initMap globally available for Google Maps callback
-    window.initMap = function() {
+    window.initMap = async function() {
       console.log('initMap called');
+      
+      // Import the marker library
+      const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
       
       // Default center (will be overridden if waypoints exist)
       let mapCenter = { lat: 35.5951, lng: -82.5515 }; // Asheville default
@@ -72,7 +74,8 @@ if (typeof window._routeMapLoaded === 'undefined') {
         center: mapCenter,
         zoom: zoomLevel,
         mapTypeId: "terrain", // Shows elevation + landscape features
-        mapTypeControl: true
+        mapTypeControl: true,
+        mapId: "8fd263ce76ccf9c7"
       };
     
       console.log('Creating map with center:', mapCenter);
@@ -83,30 +86,30 @@ if (typeof window._routeMapLoaded === 'undefined') {
       // If we have waypoints, draw the route
       if (window.routeWaypoints.length > 0) {
         console.log('Drawing route with', window.routeWaypoints.length, 'waypoints');
-        drawRouteOnMap();
+        drawRouteOnMap(AdvancedMarkerElement, PinElement);
       } else {
         console.log('No waypoints, just adding default marker');
-        // Place a marker at the center using AdvancedMarkerElement
-        if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
-          const marker = new google.maps.marker.AdvancedMarkerElement({
-            position: mapCenter,
-            map: routeMap,
-            title: "Wandrbae Starting Point"
-          });
-        } else {
-          // Fallback to regular marker if AdvancedMarkerElement is not available
-          const marker = new google.maps.Marker({
-            position: mapCenter,
-            map: routeMap,
-            title: "Wandrbae Starting Point"
-          });
-        }
+        
+        // Create a default pin element for the marker
+        const pin = new PinElement({
+          background: "#4285F4",
+          borderColor: "#FFFFFF",
+          glyphColor: "#FFFFFF"
+        });
+        
+        // Place an Advanced Marker at the center
+        const marker = new AdvancedMarkerElement({
+          position: mapCenter,
+          map: routeMap,
+          title: "Wandrbae Starting Point",
+          content: pin.element
+        });
       }
     
       console.log("Map loaded!");
     };
     
-    function drawRouteOnMap() {
+    function drawRouteOnMap(AdvancedMarkerElement, PinElement) {
       try {
         // Convert waypoints to Google Maps LatLng objects
         const path = window.routeWaypoints.map(point => {
@@ -138,28 +141,22 @@ if (typeof window._routeMapLoaded === 'undefined') {
         // Add to map
         routePath.setMap(routeMap);
         
-        // Helper function to create markers based on API availability
-        function createMarker(position, title, iconUrl) {
-          if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
-            // Use AdvancedMarkerElement if available
-            return new google.maps.marker.AdvancedMarkerElement({
-              position: position,
-              map: routeMap,
-              title: title,
-              // Advanced markers handle icons differently
-              content: document.createElement("div")  // You may need to style this element
-            });
-          } else {
-            // Fallback to regular marker
-            return new google.maps.Marker({
-              position: position,
-              map: routeMap,
-              title: title,
-              icon: iconUrl ? {
-                url: iconUrl
-              } : undefined
-            });
-          }
+        // Helper function to create markers based using Advanced Markers
+        function createMarker(position, title, color) {
+          // Create a custom pin with specified color
+          const pin = new PinElement({
+            background: color || "#4285F4",
+            borderColor: "#FFFFFF",
+            glyphColor: "#FFFFFF"
+          });
+          
+          // Create and return the Advanced Marker
+          return new AdvancedMarkerElement({
+            position: position,
+            map: routeMap,
+            title: title,
+            content: pin.element
+          });
         }
         
         // Add start marker
@@ -167,7 +164,7 @@ if (typeof window._routeMapLoaded === 'undefined') {
           createMarker(
             path[0], 
             "Start", 
-            "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            "#008000" // Green color
           );
           
           // Add end marker if different from start
@@ -175,7 +172,7 @@ if (typeof window._routeMapLoaded === 'undefined') {
             createMarker(
               path[path.length - 1],
               "End",
-              "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+              "#FF0000" // Red color
             );
           }
         }
