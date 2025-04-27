@@ -29,9 +29,7 @@ if (typeof window._routeMapLoaded === 'undefined') {
     
     // Make initMap globally available for Google Maps callback
     window.initMap = async function() {
-      console.log('initMap called');
       
-      // Import the marker library
       const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
       
       // Default center (will be overridden if waypoints exist)
@@ -44,24 +42,15 @@ if (typeof window._routeMapLoaded === 'undefined') {
         window.routeWaypoints = [];
       }
       
-      // Debug: Check for routeWaypoints
-      console.log('routeWaypoints available:', window.routeWaypoints.length > 0);
-      
       // Check if we have route waypoints
       if (window.routeWaypoints.length > 0) {
-        console.log('Using route waypoints for map center');
         
         // Handle both property naming conventions
         const firstPoint = window.routeWaypoints[0];
         
-        // Debug first waypoint
-        console.log('First waypoint:', firstPoint);
-        
         // Get lat/lng from the first waypoint
         const lat = parseFloat(firstPoint.latitude || firstPoint.lat || 0);
         const lng = parseFloat(firstPoint.longitude || firstPoint.lng || 0);
-        
-        console.log('First waypoint coordinates:', lat, lng);
         
         if (lat && lng) {
           mapCenter = { lat, lng };
@@ -77,8 +66,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
         mapTypeControl: true,
         mapId: "8fd263ce76ccf9c7"
       };
-    
-      console.log('Creating map with center:', mapCenter);
     
       // Create map instance
       routeMap = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -105,8 +92,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
           content: pin.element
         });
       }
-    
-      console.log("Map loaded!");
     };
     
     function drawRouteOnMap(AdvancedMarkerElement, PinElement) {
@@ -117,15 +102,10 @@ if (typeof window._routeMapLoaded === 'undefined') {
           const lat = parseFloat(point.latitude || point.lat || 0); 
           const lng = parseFloat(point.longitude || point.lng || 0);
           
-          console.log('Processing waypoint:', lat, lng);
-          
           return { lat, lng };
         }).filter(coord => coord.lat !== 0 && coord.lng !== 0); // Filter out invalid coordinates
         
-        console.log('Processed path:', path);
-        
         if (path.length === 0) {
-          console.log('No valid coordinates found');
           return;
         }
         
@@ -182,7 +162,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
         path.forEach(point => bounds.extend(point));
         routeMap.fitBounds(bounds);
         
-        console.log('Route drawing complete');
       } catch (error) {
         console.error('Error drawing route:', error);
       }
