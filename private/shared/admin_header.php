@@ -16,7 +16,7 @@
       <div class="header-content">
         <div class="header-text">
           <h1>Welcome Bae!</h1>
-          <img src="<?php echo url_for('/images/test.png'); ?>" id="logo" alt="WandrBae logo" width="75" height="75">
+          <img src="<?php echo url_for('/images/logo.png'); ?>" id="logo" alt="WandrBae logo" width="100" height="100">
           <p>Good to see you again!</p>
         </div>
         <div class="header-buttons">
@@ -42,7 +42,7 @@
         <li class="dropdown">
           <a href="<?php echo url_for('/admin/index.php'); ?>">Admin</a>
         <div class="dropdown-content">
-          <a href="<?php echo url_for('/admin/users/index.php'); ?>">Manage Users</a>
+          <a href="<?php echo url_for('/admin/userlist.php'); ?>">Manage Users</a>
           <a href="<?php echo url_for('/admin/routes/index.php'); ?>">Manage Routes</a>
           <a href="<?php echo url_for('/admin/settings.php'); ?>">Settings</a>
         </div>

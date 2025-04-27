@@ -20,7 +20,7 @@ if (!isset($page_title)) {
       <div class="header-content">
         <div class="header-text">
           <h1>Wandrbae</h1>
-          <img src="images/test.png" id="logo" alt="" width="75" height="75">
+          <img src="images/logo.png" id="logo" alt="" width="75" height="75">
           <p>Wander with us, bae</p>
         </div>
         <div class="header-buttons">

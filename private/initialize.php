@@ -35,6 +35,7 @@ function my_autoload($class)
 spl_autoload_register('my_autoload');
 $db = db_connect();
 ride::set_database($db);
+RideParticipant::set_database($db);
 
 $user_session = new UserSession;
 

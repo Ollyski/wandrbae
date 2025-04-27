@@ -16,7 +16,7 @@
       <div class="header-content">
         <div class="header-text">
           <h1>Welcome Bae!</h1>
-          <img src="<?php echo url_for('/images/test.png'); ?>" id="logo" alt="WandrBae logo" width="75" height="75">
+          <img src="<?php echo url_for('/images/logo.png'); ?>" id="logo" alt="WandrBae logo" width="75" height="75">
           <p>Good to see you again!</p>
         </div>
         <div class="header-buttons">

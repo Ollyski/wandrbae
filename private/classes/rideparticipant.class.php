@@ -46,11 +46,26 @@ class RideParticipant
 
   static public function is_user_signed_up($user_id, $ride_id)
   {
+    // Check if database is initialized
+    if (!isset(self::$database)) {
+        global $db;
+        self::set_database($db);
+    }
+    
+    // Check if database is available now
+    if (!isset(self::$database)) {
+        return false;
+    }
+    
     $sql = "SELECT COUNT(*) as count FROM ride_participant ";
     $sql .= "WHERE user_id='" . self::$database->escape_string($user_id) . "' ";
     $sql .= "AND ride_id='" . self::$database->escape_string($ride_id) . "'";
 
     $result = self::$database->query($sql);
+    if (!$result) {
+        return false;
+    }
+    
     $row = $result->fetch_assoc();
     return ($row['count'] > 0);
   }
@@ -67,10 +82,25 @@ class RideParticipant
 
   static public function count_participants_for_ride($ride_id)
   {
+    // Check if database is initialized
+    if (!isset(self::$database)) {
+        global $db;
+        self::set_database($db);
+    }
+    
+    // Check if database is available now
+    if (!isset(self::$database)) {
+        return 0; 
+    }
+    
     $sql = "SELECT COUNT(*) as count FROM ride_participant ";
     $sql .= "WHERE ride_id='" . self::$database->escape_string($ride_id) . "'";
 
     $result = self::$database->query($sql);
+    if (!$result) {
+        return 0; 
+    }
+    
     $row = $result->fetch_assoc();
     return $row['count'];
   }
