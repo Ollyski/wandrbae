@@ -29,15 +29,7 @@ if(is_post_request()) {
     $args['user_role_id'] = 1; 
     $args['is_user'] = 1;    
     
-    // Create the Member object
     $user = new User($args);
-    
-    // Debug - Uncomment these lines if you want to see what's happening
-    // echo "<pre>";
-    // echo "Member properties before save:\n";
-    // print_r($user);
-    // echo "</pre>";
-    // exit();
     
     $result = $user->save();
   

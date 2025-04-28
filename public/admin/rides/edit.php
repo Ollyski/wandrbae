@@ -1,5 +1,6 @@
 <?php
 require_once('../../../private/initialize.php');
+$page_title = 'Edit Ride';
 require_admin_login();
 include_header();
 
@@ -9,7 +10,6 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 if (is_post_request()) {
-
   // Save record using post parameters
   $args = [];
   $args['ride_name'] = $_POST['ride_name'] ?? NULL;
@@ -23,47 +23,54 @@ if (is_post_request()) {
   $args['state'] = $_POST['state'] ?? NULL;
   $args['zip_code'] = $_POST['zip_code'] ?? NULL;
 
-  $ride = [];
+  $ride = Ride::find_by_id($id);
+  $result = $ride->merge_attributes($args);
+  $result = $ride->save();
 
-  $result = false;
   if ($result === true) {
     $_SESSION['message'] = 'The ride was updated successfully.';
     redirect_to(url_for('/admin/rides/show.php?id=' . $id));
   } else {
-    // show errors
+    // Show errors
+    $errors = $ride->errors;
   }
 } else {
-
-
   $ride = Ride::find_by_id($id);
   if ($ride == false) {
     redirect_to(url_for('/members/rides/index.php'));
   }
+  $errors = [];
 }
 
+// Display session message if exists
+if (isset($_SESSION['message'])) {
+  echo "<div class='message'>" . $_SESSION['message'] . "</div>";
+  // Clear the message after displaying
+  $_SESSION['message'] = null;
+}
 ?>
 
-<?php $page_title = 'Edit Ride'; ?>
+<main role="main">
+  <section>
+    <div class="ride edit">
+      <h1>Edit Ride</h1>
+      <p>Update the details for this ride.</p>
+      <a href="<?php echo url_for('/admin/rides/index.php'); ?>" class="btn">&laquo; Back to List</a>
+      <?php echo display_errors($errors); ?>
 
-<div id="content">
+      <form action="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($id))); ?>" method="post">
+        <?php include('form_fields.php'); ?>
+        
+        <div id="operations">
+          <input type="submit" class="btn" value="Update Ride" />
+        </div>
+      </form>
 
-  <a class="back-link" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
-
-  <div>
-    <h1>Edit Ride</h1>
-
-
-    <form action="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($id))); ?>" method="post">
-
-      <?php include('form_fields.php'); ?>
-
-      <div id="operations">
-        <input type="submit" value="Edit Ride" />
+      <div class="actions">
+        <a href="<?php echo url_for('/admin/rides/show.php?id=' . h(u($id))); ?>" class="btn">View Ride</a>
       </div>
-    </form>
+    </div>
+  </section>
+</main>
 
-  </div>
-
-</div>
-
-<?php include(SHARED_PATH . '/member_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

@@ -1,7 +1,9 @@
 <?php
 require_once('../../../private/initialize.php');
+$page_title = 'Delete Ride';
 require_admin_login();
 include_header();
+
 if (!isset($_GET['id'])) {
   redirect_to(url_for('/admin/rides/index.php'));
 }
@@ -20,32 +22,39 @@ if (is_post_request()) {
     $_SESSION['message'] = 'The ride was deleted successfully.';
     redirect_to(url_for('/admin/rides/index.php'));
   } else {
-    // show errors
+    // Show errors
+    $errors = $ride->errors ?? ["An error occurred during deletion."];
   }
 } else {
   // Display confirmation page
+  $errors = [];
 }
 
+// Display session message if exists
+if (isset($_SESSION['message'])) {
+  echo "<div class='message'>" . $_SESSION['message'] . "</div>";
+  // Clear the message after displaying
+  $_SESSION['message'] = null;
+}
 ?>
 
-<?php $page_title = 'Delete Ride'; ?>
+<main role="main">
+  <section>
+    <div class="ride delete">
+      <h1>Delete Ride</h1>
+      <p>Are you sure you want to delete this ride?</p>
+      <p class="item-name"><?php echo h($ride->ride_name); ?></p>
 
-<div id="content">
+      <?php echo display_errors($errors); ?>
 
-  <a class="back-link" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
+      <form action="<?php echo url_for('/admin/rides/delete.php?id=' . h(u($id))); ?>" method="post">
+        <div id="operations">
+        <a href="<?php echo url_for('/admin/rides/index.php'); ?>" class="btn">&laquo; Back to List</a>
+        <input type="submit" name="commit" value="Delete Ride" class="btn" />
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
 
-  <div>
-    <h1>Delete Ride</h1>
-    <p>Are you sure you want to delete this ride?</p>
-    <p><?php echo h($ride->ride_name); ?></p>
-
-    <form action="<?php echo url_for('/admin/rides/delete.php?id=' . h(u($id))); ?>" method="post">
-      <div id="operations">
-        <input type="submit" name="commit" value="Delete Ride" />
-      </div>
-    </form>
-  </div>
-
-</div>
-
-<?php include(SHARED_PATH . '/member_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

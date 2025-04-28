@@ -17,7 +17,7 @@
       <div class="header-content">
         <div class="header-text">
           <h1>Welcome Bae!</h1>
-          <img src="<?php echo url_for('/images/logo.png'); ?>" id="logo" alt="WandrBae logo" width="100" height="100">
+          <img src="<?php echo url_for('/images/logo1.png'); ?>" id="logo" alt="WandrBae logo" width="100" height="100">
           <p>Good to see you again!</p>
         </div>
         <div class="header-buttons">
@@ -44,8 +44,7 @@
           <a href="<?php echo url_for('/admin/index.php'); ?>">Admin</a>
         <div class="dropdown-content">
           <a href="<?php echo url_for('/admin/userlist.php'); ?>">Manage Users</a>
-          <a href="<?php echo url_for('/admin/routes/index.php'); ?>">Create Ride</a>
-          <a href="<?php echo url_for('/admin/settings.php'); ?>">Settings</a>
+          <a href="<?php echo url_for('/admin/rides/index.php'); ?>">Manage Rides</a>
         </div>
         </li>
       </ul>

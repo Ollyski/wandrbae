@@ -4,7 +4,6 @@ if(!isset($admin)) {
   redirect_to(url_for('/admin/index.php'));
 }
 require_admin_login();
-include_header();
 ?>
 
 <dl>

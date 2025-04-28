@@ -19,7 +19,7 @@ $page_title = 'View Ride: ' . h($ride->ride_name);
 <div id="main">
   <div id="page">
     <div>
-      <a class="back-link" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
+      <a class="btn" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
     </div>
     
     <div class="ride detail">
@@ -56,11 +56,11 @@ $page_title = 'View Ride: ' . h($ride->ride_name);
       </div>
       
       <div id="operations">
-        <a class="action" href="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($ride->ride_id))); ?>">Edit</a>
-        <a class="action" href="<?php echo url_for('/admin/rides/delete.php?id=' . h(u($ride->ride_id))); ?>">Delete</a>
+        <a class="btn" href="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($ride->ride_id))); ?>">Edit</a>
+        <a class="btn" href="<?php echo url_for('/admin/rides/delete.php?id=' . h(u($ride->ride_id))); ?>">Delete</a>
       </div>
     </div>
   </div>
 </div>
 
-<?php include(SHARED_PATH . '/member_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

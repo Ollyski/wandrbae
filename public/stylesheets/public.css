@@ -1,24 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Dongle&family=Frijole&family=Kavoon&family=Knewave&family=Lacquer&family=Lemon&family=Manjari:wght@100;400;700&family=Margarine&family=Modak&family=Nokora:wght@100;300;400;700;900&family=Outfit:wght@100..900&family=Permanent+Marker&family=Quicksand:wght@300..700&family=Rubik+Dirt&family=Trade+Winds&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
-
 body {
   margin: 0;
 }
 
 .header-content {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
-  
 }
 
 .header-text {
+  align-items: center;
   color: #fff;
   display: flex;
-  align-items: center;
-  gap:15px
-
+  gap: 15px; 
 }
+
 .header-text h1,
 .header-text p {
   margin: 0;
@@ -35,18 +32,18 @@ body {
 }
 
 #page-header {
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
   background-color: #35495e;
   border-bottom: 10px solid #914915;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
 }
 
 #page-header > div {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .header-buttons {
@@ -60,51 +57,49 @@ main, #main {
 }
 
 nav {
-  background-color: rgb(235, 106, 0);
+  background-color: #bb5807;
   border-left: none;
   border-right: none;
   box-sizing: border-box;
-  width: 100%;
   margin: 0;
+  width: 100%;
 }
 
 nav ul {
+  display: flex;
+  justify-content: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
 }
 
 nav ul li {
-  box-sizing: border-box;
   border: 6px solid transparent;
+  box-sizing: border-box;
   padding: 5px 15px;
 }
 
 /**STICK ANIMATION ON HERE**/
 nav ul li:hover {
-  background-color: #fa7a10;
+  background-color: #db6300;
   border-radius: 8px;
-  
 }
 
 nav ul li a {
   color: white;
-  font-weight: bold;
   font-size: 1.5rem;
+  font-weight: bold;
   text-decoration: none;
 }
 
-
 .btn {
   background-color: #bd5500; 
-  color: white;
-  padding: 10px 20px; 
   border-radius: 25px; 
+  color: white;
+  font-weight: bold; 
+  padding: 10px 20px; 
   text-align: center; 
   text-decoration: none; 
-  font-weight: bold; 
 }
 
 .btn:hover {
@@ -120,82 +115,80 @@ footer {
 }
 
 footer p {
+  color: #fff;
   margin: 0;
   padding: 1rem;
-  color: #fff;
 }
 
 /**Card Css**/
 .intro {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 2rem 0;
   background-color: #347474;
   border-radius: 8px;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  text-align: center;
 }
 
 .intro h2 {
+  color: #fff;
   font-size: 2.5rem;
-  color: #333;
   margin-bottom: 0.5rem;
 }
 
 .intro p {
+  color: #fff;
   font-size: 1.2rem;
-  color: #666;
 }
 
 .rides-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 1rem;
 }
 
 .ride-card {
-  border-radius: 8px;
-  overflow: visible; /* Important - allow the border to extend outside the card */
   background-color: white;
-  height: 100%;
+  border-radius: 8px;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: visible;
   position: relative;
   transition: transform 0.3s ease;
-  box-shadow: none;
 }
 
-
 .ride-card:hover {
-  transform: translateY(-6px);
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.35);
+  transform: translateY(-6px);
 }
 
 .ride-header {
   background-color: #347474;
+  border-radius: 8px 8px 0 0;
   color: white;
   padding: 1rem;
-  border-radius: 8px 8px 0 0;
   position: relative;
   z-index: 1;
 }
 
 .ride-card::before {
+  background-size: 300% 100%;
+  background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
+  border-radius: 10px;
   content: '';
   position: absolute;
-  top: -3px;     /* Position slightly outside the card */
+  top: -3px;
   left: -3px;
   right: -3px;
   bottom: -3px;
-  border-radius: 10px; /* Slightly larger than the card's border-radius */
-  background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
-  background-size: 300% 100%;
-  z-index: 0;
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
 .ride-card:hover::before {
-  opacity: 1;
   animation: moveGradient 4s linear infinite;
 }
 
@@ -211,52 +204,49 @@ footer p {
 }
 
 .ride-creator {
-  opacity: 0.8;
   margin-top: 5px;
 }
 
 .ride-info {
-  padding: 1rem;
-  flex-grow: 1;
   background-color: #fff;
+  flex-grow: 1;
+  padding: 1rem;
   position: relative;
   z-index: 1;
 }
 
 .ride-detail {
-  margin-bottom: 0.8rem;
-  display: flex;
   align-items: flex-start;
+  display: flex;
+  margin-bottom: 0.8rem;
 }
 
 .ride-detail-icon {
   margin-right: 8px;
-  color: #7f8c8d;
   width: 20px;
   text-align: center;
 }
 
 .ride-detail-text {
-  flex: 1;
   color: #444;
+  flex: 1;
 }
 
 .ride-detail-label {
-  font-weight: 600;
+  color: #666;
   display: block;
   font-size: 0.85rem;
-  color: #666;
+  font-weight: 600;
   margin-bottom: 2px;
 }
 
 .ride-footer {
   background-color: #f7f6f6;
-  padding: 1rem;
-  text-align: center;
+  border-radius: 0 0 8px 8px;
   border-top: 1px solid #eee;
   margin-top: auto;
-  border-radius: 0 0 8px 8px;
+  padding: 1rem;
   position: relative;
+  text-align: center;
   z-index: 1;
 }
-

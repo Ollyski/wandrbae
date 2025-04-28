@@ -3,17 +3,16 @@ body {
 }
 
 .header-content {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
-
 }
 
 .header-text {
+  align-items: center;
   color: #fff;
   display: flex;
-  align-items: center;
   gap:15px
 }
 .header-text h1,
@@ -32,18 +31,18 @@ body {
 }
 
 #page-header {
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
   background-color: #35495e;
   border-bottom: 10px solid #914915;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
 }
 
 #page-header > div {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .header-buttons {
@@ -57,39 +56,38 @@ main, #main {
 }
 
 nav {
-  background-color: rgb(235, 106, 0);
+  background-color: #bb5807;
   border-left: none;
   border-right: none;
   box-sizing: border-box;
-  width: 100%;
   margin: 0;
+  width: 100%;
 }
 
 nav ul {
+  display: flex;
+  justify-content: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
 }
 
 nav ul li {
-  box-sizing: border-box;
   border: 6px solid transparent;
+  box-sizing: border-box;
   padding: 5px 15px;
 }
 
 /**STICK ANIMATION ON HERE**/
 nav ul li:hover {
-  background-color: #fa7a10;
+  background-color: #db6300;
   border-radius: 8px;
-  
 }
 
 nav ul li a {
   color: white;
-  font-weight: bold;
   font-size: 1.5rem;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -97,9 +95,9 @@ nav ul li a {
   background-color: #bd5500;
   border-radius: 25px; 
   color: #fff;
+  font-weight: bold;
   padding: .5rem;
   text-decoration: none;
-  font-weight: bold;
 }
 
 .back-to-rides:hover {
@@ -109,12 +107,12 @@ nav ul li a {
 .btn, button, .action:hover {
   background-color: #bd5500; 
   border: none;
-  color: white;
-  padding: 10px 20px; 
   border-radius: 25px; 
+  color: white;
+  font-weight: bold; 
+  padding: 10px 20px; 
   text-align: center; 
   text-decoration: none; 
-  font-weight: bold; 
 }
 
 .btn:hover, button:hover, .action:hover {
@@ -130,77 +128,77 @@ footer {
 }
 
 footer p {
+  color: #fff;
   margin: 0;
   padding: 1rem;
-  color: #fff;
 }
 
 /**Card Css**/
 .intro {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 2rem 0;
   background-color: #347474;
   border-radius: 8px;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  text-align: center;
 }
 
 .intro h2 {
+  color: #fff;
   font-size: 2.5rem;
-  color: #333;
   margin-bottom: 0.5rem;
 }
 
 .intro p {
+  color: #fff;
   font-size: 1.2rem;
-  color: #666;
 }
 
 .rides-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 1rem;
 }
 
 .ride-card {
-  border-radius: 8px;
-  overflow: visible; /* Important - allow the border to extend outside the card */
   background-color: white;
-  height: 100%;
+  border-radius: 8px;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: visible; 
   position: relative;
   transition: transform 0.3s ease;
-  box-shadow: none;
 }
 
 .ride-card:hover {
-  transform: translateY(-6px);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.35);
+  transform: translateY(-6px);
 }
 
 .ride-header {
   background-color: #347474;
+  border-radius: 8px 8px 0 0;
   color: white;
   padding: 1rem;
-  border-radius: 8px 8px 0 0;
   position: relative;
   z-index: 1;
 }
 
 .ride-card::before {
-  content: '';
-  position: absolute;
-  top: -3px;     /* Position slightly outside the card */
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  border-radius: 10px; /* Slightly larger than the card's border-radius */
   background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
   background-size: 300% 100%;
-  z-index: 0;
+  border-radius: 10px;
+  bottom: -3px;
+  content: '';
+  position: absolute;
+  top: -3px;  
+  left: -3px;
   opacity: 0;
+  right: -3px;
   transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
 .ride-card:hover::before {
@@ -215,87 +213,86 @@ footer p {
 
 .ride-name {
   font-size: 1.4rem;
-  margin: 0;
   font-weight: 600;
+  margin: 0;
 }
 
 .ride-creator {
-  opacity: 0.8;
   margin-top: 5px;
 }
 
 .ride-info {
-  padding: 1rem;
-  flex-grow: 1;
   background-color: #fff;
+  flex-grow: 1;
+  padding: 1rem;
   position: relative;
   z-index: 1;
 }
 
 .ride-detail {
-  margin-bottom: 0.8rem;
-  display: flex;
   align-items: flex-start;
+  display: flex;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
 }
 
 .ride-detail-icon {
   margin-right: 8px;
-  color: #7f8c8d;
-  width: 20px;
+  width: 30px;
   text-align: center;
 }
 
 .ride-detail-text {
-  flex: 1;
   color: #444;
+  flex: 1;
 }
 
 .ride-detail-label {
-  font-weight: 600;
+  color: #666;
   display: block;
   font-size: 0.85rem;
-  color: #666;
+  font-weight: 600;
   margin-bottom: 2px;
 }
 
 .ride-footer {
   background-color: #f7f6f6;
-  padding: 1rem;
-  text-align: center;
+  border-radius: 0 0 8px 8px;
   border-top: 1px solid #eee;
   margin-top: auto;
-  border-radius: 0 0 8px 8px;
+  padding: 1rem;
   position: relative;
+  text-align: center;
   z-index: 1;
 }
 
 /* *****TABLE STYLING**** */
 
 .container th h1 {
-  font-weight: bold;
+  color: #5eebab;
   font-size: 1.1rem;
+  font-weight: bold;
   text-align: center;
-  color: #42b883;
 }
 
 .container td {
-  color: #61b402;
-  font-weight: bold;
+  border-radius: 5px;
+  color: #96f8cf;
   font-size: 1em;
+  font-weight: bold;
   -webkit-box-shadow: 0 2px 2px -2px #0E1119;
   -moz-box-shadow: 0 2px 2px -2px #0E1119;
   box-shadow: 0 2px 2px -2px #0E1119;
   text-align: center;
-  border-radius: 5px;
 }
 
 .container {
-  text-align: left;
-  overflow: hidden;
-  width: 80%;
-  margin: 0 auto;
   display: table;
+  margin: 0 auto;
+  overflow: hidden;
   padding: 1rem;
+  width: 80%;
+  text-align: left;
 }
 
 .container td, .container th {
@@ -314,31 +311,31 @@ footer p {
 
 .container th {
   background-color: #1F2739;
-  text-align: center;
   border-radius: 5px;
+  text-align: center;
 }
 
 .container td:first-child { 
-  color: #ff7e67; 
+  color: #ffbd99; 
 }
 
 .container tr:hover {
-  background-color: #b97918;
-  -webkit-box-shadow: 0 6px 6px -6px #b97918;
-  -moz-box-shadow: 0 6px 6px -6px #b97918;
-  box-shadow: 0 6px 6px -6px #b97918;
+  background-color: #97671f;
+  box-shadow: 0 6px 6px -6px #97671f;
+  -moz-box-shadow: 0 6px 6px -6px #97671f;
+  -webkit-box-shadow: 0 6px 6px -6px #97671f;
 }
 
 .container td:hover {
   background-color: #FFF842;
+  box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
   color: #403E10;
   font-weight: bold;
-  box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
-  transform: translate3d(6px, -6px, 0);
   transition-delay: 0s;
   transition-duration: 0.4s;
   transition-property: all;
   transition-timing-function: linear;
+  transform: translate3d(6px, -6px, 0);
 }
 
 @media (max-width: 800px) {
@@ -368,8 +365,8 @@ footer p {
 
 .userlist h1 {
   color: #050505;
-  text-align: center;
   margin-bottom: .5rem;
+  text-align: center;
 }
 
 .userlist .actions {
@@ -380,13 +377,13 @@ footer p {
 .userlist .action {
   background-color: #bd5500;
   border: none;
-  color: white;
-  padding: 10px 20px;
   border-radius: 25px;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
 }
 
 .userlist .action:hover {
@@ -396,33 +393,33 @@ footer p {
 /****ADMIN STYLING****/
 
 .dropdown {
-  position: relative;
   display: inline-block;
+  position: relative;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgb(235, 106, 0);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  background-color: #bb5807;
   border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  display: none;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
   margin-top: 5px;
+  position: absolute;
   text-align: center;
+  transform: translateX(-50%);
   white-space: nowrap;
   width: auto;
+  z-index: 1;
 }
 
 .dropdown-content a {
   color: white;
+  display: block;
+  font-size: 1rem;
   padding: 6px 6px;
   text-decoration: none;
-  display: block;
   text-align: center;
-  font-size: 1rem;
 }
 
 .dropdown-content a:hover {
@@ -437,25 +434,25 @@ footer p {
 /* ROUTE STYLING */
 .routes-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 1rem;
 }
 
 /* Route detail view styling */
 .route-detail-header {
+  align-items: center;
+  background-color: #347474;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 1.5rem;
-  background-color: #347474;
   padding: 1rem;
-  border-radius: 8px;
 }
 
 .route-detail-header h2 {
-  margin: 0;
   color: white;
+  margin: 0;
 }
 
 .route-detail-card {
@@ -465,48 +462,48 @@ footer p {
 
 .map-container {
   background-color: white;
-  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-top: 2rem;
+  padding: 1rem;
 }
 
 .map-container h3 {
-  margin-top: 0;
   color: #347474;
+  margin-top: 0;
 }
 
 /* Make sure route cards have the same effect as ride cards */
 .route-card:hover {
-  transform: translateY(-6px);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.35);
+  transform: translateY(-6px);
 }
 
 .route-card::before {
+  background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
+  background-size: 300% 100%;
+  border-radius: 10px;
+  bottom: -3px;
   content: '';
-  position: absolute;
   top: -3px;
   left: -3px;
   right: -3px;
-  bottom: -3px;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
-  background-size: 300% 100%;
-  z-index: 0;
   opacity: 0;
+  position: absolute;
   transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
 .route-card:hover::before {
-  opacity: 1;
   animation: moveGradient 4s linear infinite;
+  opacity: 1;
 }
 
 /* For the detail view on mobile */
 @media (max-width: 768px) {
   .route-detail-header {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
   }
   
   .route-detail-header a {

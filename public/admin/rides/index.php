@@ -1,65 +1,62 @@
 <?php require_once('../../../private/initialize.php'); ?>
-<?php require_admin_login();
+<?php require_admin_login(); 
 include_header(); ?>
-
-
-<div id="main">
-
-  <ul id="menu">
-    <li><a href="<?php echo url_for('/ride.php'); ?>">View our rides</a></li>
-  </ul>
-
-<?php $page_title = 'Rides'; ?>
-<div id="main">
-  <div id="page">
-    <div class="intro">
-      <h2>Wander with your baes!</h2>
-      <p>Sign up for a ride!</p>
-    </div>
-    <table id="Rides">
-      <tr>
-        <th>Ride Name</th>
-        <th>Created By</th>
-        <th>Starts At</th>
-        <th>Ends At</th>
-        <th>Where</th>
-        <th>Location</th>
-        <th>Address</th>
-        <th>&nbsp;</th>
-      </tr>
 <?php
+
 $rides = Ride::find_all();
+
 ?>
-      <?php foreach($rides as $ride) { ?>
-      <tr>
-        <td><?php echo h($ride->ride_name); ?></td>
-        <td><?php echo h($ride->username); ?></td>
-        <td><?php echo h($ride->start_time); ?></td>
-        <td><?php echo h($ride->end_time); ?></td>
-        <td><?php echo h($ride->location_name); ?></td>
-        <td><?php echo h($ride->street_address); ?></td>
-        <td><a href="detail.php?id=<?php echo $ride->ride_id; ?>">View</a></td>
-        <td><a class="action" href="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($ride->ride_id))); ?>">Edit</a></td>
-        <td><a class="action" href="<?php echo url_for('/admin/rides/delete.php?id=' . h(u($ride->ride_id))); ?>">Delete</a></td>
-      </tr>
-      <?php } ?>
-    </table>
-    <?php
-    // Using find_by_sql to get the ride objects
-    $sql = "SELECT * FROM ride";
-    $ride_objects = Ride::find_by_sql($sql);
-    
-    // Check if any rides were found
-    if(!empty($ride_objects)) {
-      $first_ride = $ride_objects[0];
-    } else {
-      echo "No rides found.";
-    }
-    ?>
+<?php $page_title = 'Ride List'; ?>
+
+<div id="main">
+  <div class="userlist">
+    <section>
+      <h1>Ride List</h1>
+
+      <div class="actions">
+        <a class="action" href="<?php echo url_for('/admin/rides/new.php'); ?>">Add Ride</a>
+      </div>
+
+      <table class="container">
+        <thead>
+          <tr>
+            <th><h1>Ride ID</h1></th>
+            <th><h1>Ride Name</h1></th>
+            <th><h1>Created By</h1></th>
+            <th><h1>Starts At</h1></th>
+            <th><h1>Ends At</h1></th>
+            <th><h1>Where</h1></th>
+            <th><h1>Location</h1></th>
+            <th><h1>Actions</h1></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if(empty($rides)) { ?>
+            <tr>
+              <td colspan="8">No rides found.</td>
+            </tr>
+          <?php } else { ?>
+            <?php foreach($rides as $ride) { ?>
+              <tr>
+                <td><?php echo h($ride->ride_id ?? ''); ?></td>
+                <td><?php echo h($ride->ride_name ?? ''); ?></td>
+                <td><?php echo h($ride->username ?? ''); ?></td>
+                <td><?php echo h($ride->start_time ?? ''); ?></td>
+                <td><?php echo h($ride->end_time ?? ''); ?></td>
+                <td><?php echo h($ride->location_name ?? ''); ?></td>
+                <td><?php echo h($ride->street_address ?? ''); ?></td>
+                <td>
+                  <a class="table-action" href="<?php echo url_for('/admin/rides/detail.php?id=' . h(u($ride->ride_id ?? ''))); ?>">View</a>
+                  <a class="table-action" href="<?php echo url_for('/admin/rides/edit.php?id=' . h(u($ride->ride_id ?? ''))); ?>">Edit</a>
+                  <a class="table-action" href="<?php echo url_for('/admin/rides/delete.php?id=' . h(u($ride->ride_id ?? ''))); ?>">Delete</a>
+                </td>
+              </tr>
+            <?php } ?>
+          <?php } ?>
+        </tbody>
+      </table>
+    </section>
   </div>
 </div>
-    
-</div>
 
-
-<?php include(SHARED_PATH . '/member_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

@@ -11,14 +11,12 @@ $user = User::find_all();
 <div id="main">
   <div>
     <section>
-      <h1>Admin Bae!</h1>
+      <h1>Hello Route Scout!</h1>
       <p>What would you like to see?</p>
 
-      <a href="<?php echo url_for('/admin/userlist.php'); ?>">User List</a>
+      <a class="btn" href="<?php echo url_for('/admin/userlist.php'); ?>">User List</a>
 
-      <a href="<?php echo url_for('/admin/userlist.php'); ?>">Active Rides</a>
-
-      <a href="<?php echo url_for('/admin/userlist.php'); ?>">Ride History</a>
+      <a class="btn" href="<?php echo url_for('/admin/rides/index.php'); ?>">Active Rides</a>
     
     </section>
   </div>

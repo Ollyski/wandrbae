@@ -56,11 +56,11 @@ if(is_post_request()) {
       </dl>
 
       <div id="operations">
-        <input type="submit" value="Log in" />
+        <input type="submit" value="Log in" class="btn" />
       </div>
     </form>
 
-    <p>Don't have an account? <a href="<?php echo url_for('/join.php'); ?>">Sign up now</a>.</p>
+    <p>Don't have an account? <a class="btn" href="<?php echo url_for('/join.php'); ?>">Sign up now</a>.</p>
   </section>
 </div>
 

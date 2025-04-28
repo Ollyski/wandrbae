@@ -5,7 +5,6 @@ if(!isset($ride)) {
   $ride = new stdClass();
 }
 require_admin_login();
-include_header();
 ?>
 
 <dl>

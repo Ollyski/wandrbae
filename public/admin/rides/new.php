@@ -1,8 +1,8 @@
 <?php require_once('../../../private/initialize.php'); 
+$page_title = 'Create Ride';
 require_admin_login();
-include_header();?>
-<?php $page_title = 'Create Ride'; ?>
-<?php
+include_header();
+
 $errors = [];
 
 if (is_post_request()) {
@@ -29,32 +29,41 @@ if (is_post_request()) {
   if (empty($errors)) {
     $ride = new Ride($args);
     $result = $ride->create();
-  }
-  if ($result === true) {
-    $new_id = $ride->ride_id;
-    $_SESSION['message'] = 'The ride was created successfully.';
-    redirect_to(url_for('/admin/rides/show.php?id=' . $new_id));
-  } else {
-    $errors[] = "Database error: " . $result;
+  
+    if ($result === true) {
+      $new_id = $ride->ride_id;
+      $_SESSION['message'] = 'The ride was created successfully.';
+      redirect_to(url_for('/admin/rides/show.php?id=' . $new_id));
+    } else {
+      $errors[] = "Database error: " . $result;
+    }
   }
 } else {
   $ride = new stdClass();
 }
 ?>
 
+<main role="main">
+  <section>
+    <div class="ride new">
+      <h1>Create Ride</h1>
+      <p>Add a new ride to the schedule!</p>
 
-<div id="content">
-  <a class="back-link" href="<?php echo url_for('/admin/rides/index.php'); ?>">&laquo; Back to List</a>
-  <div class="ride new">
-    <h1>Create Ride</h1>
-    <?php echo display_errors($errors); ?>
-    <form action="<?php echo url_for('/admin/rides/new.php'); ?>" method="post">
-      <?php include('form_fields.php'); ?>
-      <div id="operations">
-        <input type="submit" value="Create Ride" />
+      <?php echo display_errors($errors); ?>
+
+      <form action="<?php echo url_for('/admin/rides/new.php'); ?>" method="post">
+        <?php include('form_fields.php'); ?>
+        
+        <div id="operations">
+          <input type="submit" class="btn" value="Create Ride" />
+        </div>
+      </form>
+
+      <div class="actions">
+        <a href="<?php echo url_for('/admin/rides/index.php'); ?>" class="btn">&laquo; Back to List</a>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
+  </section>
+</main>
 
-<?php include(SHARED_PATH . '/member_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>
