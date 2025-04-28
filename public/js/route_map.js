@@ -1,3 +1,18 @@
+/**
+ * route_map.js
+ * 
+ * This script handles the initialization and rendering of a Google Maps route display.
+ * It uses the Google Maps JavaScript API to create an interactive map showing a route
+ * between waypoints defined in the global window.routeWaypoints array.
+ * 
+ * The script supports:
+ * - Dynamic loading of the Google Maps API
+ * - Drawing routes between waypoints with styled polylines
+ * - Adding start/end markers with custom styling
+ * - Automatically fitting the map view to show the entire route
+ * - Falling back to a default location when no waypoints are provided
+*/
+
 if (typeof window._routeMapLoaded === 'undefined') {
   window._routeMapLoaded = true;
   console.log('route_map.js loaded at', new Date().toISOString());
@@ -27,7 +42,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
       }
     }
     
-    // Make initMap globally available for Google Maps callback
     window.initMap = async function() {
       
       const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
@@ -47,8 +61,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
         
         // Handle both property naming conventions
         const firstPoint = window.routeWaypoints[0];
-        
-        // Get lat/lng from the first waypoint
         const lat = parseFloat(firstPoint.latitude || firstPoint.lat || 0);
         const lng = parseFloat(firstPoint.longitude || firstPoint.lng || 0);
         
@@ -58,7 +70,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
         }
       }
     
-      // Set map options
       const mapOptions = {
         center: mapCenter,
         zoom: zoomLevel,
@@ -94,22 +105,25 @@ if (typeof window._routeMapLoaded === 'undefined') {
       }
     };
     
+      /**
+     * Draws the route polyline and adds start/end markers to the map
+     * @param {Class} AdvancedMarkerElement - Google Maps marker class for creating custom markers
+     * @param {Class} PinElement - Google Maps class for creating custom pins
+    */
+
     function drawRouteOnMap(AdvancedMarkerElement, PinElement) {
       try {
-        // Convert waypoints to Google Maps LatLng objects
         const path = window.routeWaypoints.map(point => {
-          // Try to extract latitude/longitude however they're named
           const lat = parseFloat(point.latitude || point.lat || 0); 
           const lng = parseFloat(point.longitude || point.lng || 0);
           
           return { lat, lng };
-        }).filter(coord => coord.lat !== 0 && coord.lng !== 0); // Filter out invalid coordinates
+        }).filter(coord => coord.lat !== 0 && coord.lng !== 0); 
         
         if (path.length === 0) {
           return;
         }
         
-        // Create polyline for the route
         routePath = new google.maps.Polyline({
           path: path,
           geodesic: true,
@@ -118,19 +132,22 @@ if (typeof window._routeMapLoaded === 'undefined') {
           strokeWeight: 4
         });
         
-        // Add to map
         routePath.setMap(routeMap);
         
-        // Helper function to create markers based using Advanced Markers
+         /**
+         * Helper function to create markers using Advanced Markers
+         * @param {Object} position - LatLng position for the marker
+         * @param {string} title - Tooltip text for the marker
+         * @param {string} color - Hex color code for the pin background
+         * @returns {Object} The created marker instance
+         */
         function createMarker(position, title, color) {
-          // Create a custom pin with specified color
           const pin = new PinElement({
             background: color || "#4285F4",
             borderColor: "#FFFFFF",
             glyphColor: "#FFFFFF"
           });
           
-          // Create and return the Advanced Marker
           return new AdvancedMarkerElement({
             position: position,
             map: routeMap,
@@ -139,7 +156,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
           });
         }
         
-        // Add start marker
         if (path.length > 0) {
           createMarker(
             path[0], 
@@ -147,7 +163,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
             "#008000" // Green color
           );
           
-          // Add end marker if different from start
           if (path.length > 1) {
             createMarker(
               path[path.length - 1],
@@ -157,7 +172,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
           }
         }
         
-        // Fit map to bounds of the route
         const bounds = new google.maps.LatLngBounds();
         path.forEach(point => bounds.extend(point));
         routeMap.fitBounds(bounds);
@@ -167,7 +181,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
       }
     }
     
-    // Single event listener for DOMContentLoaded
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', function () {
         if (document.getElementById('map')) {
@@ -178,7 +191,6 @@ if (typeof window._routeMapLoaded === 'undefined') {
         }
       });
     } else {
-      // DOM already loaded
       if (document.getElementById('map')) {
         console.log('Map element found (DOM already loaded), calling loadGoogleMapsAPI');
         loadGoogleMapsAPI();

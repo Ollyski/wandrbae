@@ -14,23 +14,65 @@ $show_map = true;
 <main>
   <div class="container">
     <section>
-      <h1><?php echo h($route['route_name']); ?></h1>
-      <a href="../members/routes/index.php">Back to Routes</a>
+      <div class="route-detail-header">
+        <h2><?php echo h($route['route_name']); ?></h2>
+        <a href="../members/routes/index.php" class="back-to-rides">Back to Routes</a>
+      </div>
       
-      <div class="route-details">
-        <div class="route-info">
-          <p><strong>Distance:</strong> <?php echo h($route['distance_km']); ?> km</p>
-          <p><strong>Terrain:</strong> <?php echo h($route['terrain_name']); ?></p>
-          <p><strong>Difficulty:</strong> <?php echo h($route['difficulty_type']); ?></p>
-          <?php if(isset($route['bike_lane'])): ?>
-            <p><strong>Bike Lane:</strong> <?php echo $route['bike_lane'] ? 'Yes' : 'No'; ?></p>
-          <?php endif; ?>
-          <?php if(isset($route['landmarks']) && !empty($route['landmarks'])): ?>
-            <h3>Landmarks</h3>
-            <p><?php echo h($route['landmarks']); ?></p>
-          <?php endif; ?>
+      <div class="route-detail-card ride-card">
+        <div class="ride-header">
+          <h3 class="ride-name"><?php echo h($route['route_name']); ?></h3>
         </div>
         
+        <div class="ride-info">
+          <div class="ride-detail">
+            <div class="ride-detail-icon">📏</div>
+            <div class="ride-detail-text">
+              <span class="ride-detail-label">Distance</span>
+              <?php echo h($route['distance_km']); ?> km
+            </div>
+          </div>
+          
+          <div class="ride-detail">
+            <div class="ride-detail-icon">🏞️</div>
+            <div class="ride-detail-text">
+              <span class="ride-detail-label">Terrain</span>
+              <?php echo h($route['terrain_name']); ?>
+            </div>
+          </div>
+          
+          <div class="ride-detail">
+            <div class="ride-detail-icon">⚠️</div>
+            <div class="ride-detail-text">
+              <span class="ride-detail-label">Difficulty</span>
+              <?php echo h($route['difficulty_type']); ?>
+            </div>
+          </div>
+          
+          <?php if(isset($route['bike_lane'])): ?>
+          <div class="ride-detail">
+            <div class="ride-detail-icon">🚲</div>
+            <div class="ride-detail-text">
+              <span class="ride-detail-label">Bike Lane</span>
+              <?php echo $route['bike_lane'] ? 'Available' : 'Not Available'; ?>
+            </div>
+          </div>
+          <?php endif; ?>
+          
+          <?php if(isset($route['landmarks']) && !empty($route['landmarks'])): ?>
+          <div class="ride-detail">
+            <div class="ride-detail-icon">🗺️</div>
+            <div class="ride-detail-text">
+              <span class="ride-detail-label">Landmarks</span>
+              <?php echo h($route['landmarks']); ?>
+            </div>
+          </div>
+          <?php endif; ?>
+        </div>
+      </div>
+      
+      <div class="map-container">
+        <h3>Route Map</h3>
         <div id="map" style="height: 400px; width: 100%; border-radius: 10px; margin-top: 20px;"></div>
       </div>
     </section>

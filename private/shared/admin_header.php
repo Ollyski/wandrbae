@@ -9,6 +9,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/members.css'); ?>" />
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -43,7 +44,7 @@
           <a href="<?php echo url_for('/admin/index.php'); ?>">Admin</a>
         <div class="dropdown-content">
           <a href="<?php echo url_for('/admin/userlist.php'); ?>">Manage Users</a>
-          <a href="<?php echo url_for('/admin/routes/index.php'); ?>">Manage Routes</a>
+          <a href="<?php echo url_for('/admin/routes/index.php'); ?>">Create Ride</a>
           <a href="<?php echo url_for('/admin/settings.php'); ?>">Settings</a>
         </div>
         </li>

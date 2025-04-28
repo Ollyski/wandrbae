@@ -13,6 +13,7 @@ if (!isset($page_title)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
     <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
 
   <body>

@@ -2,7 +2,7 @@
 include_header(); ?>
 <?php $page_title = 'Rides'; ?>
 
-<div id="main">
+<main role="main">
   <div id="page">
     <div class="intro">
       <h2>Wander with your baes!</h2>

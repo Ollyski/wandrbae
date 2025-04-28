@@ -338,7 +338,7 @@ footer p {
   transition-delay: 0s;
   transition-duration: 0.4s;
   transition-property: all;
-  transition-timing-function: line;
+  transition-timing-function: linear;
 }
 
 @media (max-width: 800px) {
@@ -434,3 +434,82 @@ footer p {
   display: block;
 }
 
+/* ROUTE STYLING */
+.routes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 1rem;
+}
+
+/* Route detail view styling */
+.route-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: #347474;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.route-detail-header h2 {
+  margin: 0;
+  color: white;
+}
+
+.route-detail-card {
+  margin-bottom: 2rem;
+  max-width: 100%;
+}
+
+.map-container {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.map-container h3 {
+  margin-top: 0;
+  color: #347474;
+}
+
+/* Make sure route cards have the same effect as ride cards */
+.route-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.route-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #fa7a10, #8bd339, #ff7e67, #fa7a10);
+  background-size: 300% 100%;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.route-card:hover::before {
+  opacity: 1;
+  animation: moveGradient 4s linear infinite;
+}
+
+/* For the detail view on mobile */
+@media (max-width: 768px) {
+  .route-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .route-detail-header a {
+    margin-top: 1rem;
+  }
+}
