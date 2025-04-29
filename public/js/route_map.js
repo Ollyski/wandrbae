@@ -140,7 +140,8 @@ if (typeof window._routeMapLoaded === 'undefined') {
          * @param {string} title - Tooltip text for the marker
          * @param {string} color - Hex color code for the pin background
          * @returns {Object} The created marker instance
-         */
+        */
+
         function createMarker(position, title, color) {
           const pin = new PinElement({
             background: color || "#4285F4",

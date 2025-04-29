@@ -9,7 +9,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/members.css'); ?>" />
   <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>

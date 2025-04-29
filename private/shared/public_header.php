@@ -9,10 +9,11 @@ if (!isset($page_title)) {
 
   <head>
     <meta charset="utf-8">
-    <title>Wandrbae - <?php echo h($page_title); ?></title>
+    <title>Wandrbae<?php echo h($page_title); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
     <script src="<?php echo url_for('/js/route_map.js'); ?>"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
   <body>
@@ -42,7 +43,6 @@ if (!isset($page_title)) {
     <nav role="navigation">
       <ul>
         <li><a href="<?php echo url_for('/index.php'); ?>">Home</a></li>
-        <li><a href="<?php echo url_for('/members/routes/index.php'); ?>">Routes</a></li>
         <li><a href="<?php echo url_for('/ride.php'); ?>">Ride</a></li>
         <li><a href="<?php echo url_for('/about.php'); ?>">About</a></li>
         <?php if (!$user_session->is_logged_in()) { ?>
