@@ -1,0 +1,25 @@
+Wandrbae is a platform where users can sign up for rides on routes that have been approved by admin also known as Route Scouts.
+
+Features include user authentication (login/signup/logout)
+Members only can view routes and rides, and signup/ cancel participation in a ride
+Admin can view the userlist and create, edit, delete, view users
+
+Routes use javascript to draw a line on a map to show the route, using waypoints added in the database to create the route.
+
+This Project uses
+PHP, MySQL, HTML, CSS and JavaScript
+Other tools used: Procreate, dbdiagram.io for the schema design
+
+Images used:
+Bicycle by Pixabay user MaBras
+logo and logo1 created by myself using Procreate
+
+
+Future improvements:
+Route Scouts can record routes and notate route features
+Superadmin user level for managing admin
+
+
+For feedback and/or bug reports, please contact Oliversilinski@students.abtech.edu
+
+Thank you for checking out my project!
