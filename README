@@ -6,6 +6,9 @@ Admin can view the userlist and create, edit, delete, view users
 
 Routes use javascript to draw a line on a map to show the route, using waypoints added in the database to create the route.
 
+Implementation:
+Download the SQL and project files from Github and go to town~
+
 This Project uses
 PHP, MySQL, HTML, CSS and JavaScript
 Other tools used: Procreate, dbdiagram.io for the schema design
